@@ -1,9 +1,36 @@
+<?
+if (!empty($item_parser)) {
+    foreach ($item_parser as $key => $arItemObjects) {
+       /* echo "<pre>";
+        var_dump($key);
+        echo "</pre>";*/
+        foreach ($arItemObjects as $objItem) {
+            foreach ($objItem as $cell => $item) {
+                /*echo "<pre>";
+                var_dump($cell);
+                var_dump($item);
+                echo "</pre>";*/
+                $arParams[$key][$cell] = $item;
+            }
+        }
+    }
+} else {
+    $arParams = array();
+}
+
+?>
 <input type="hidden" class="id_pars" value="">
-<input type="text" class="name_source" value="" placeholder="Название источника"><br>
-<input type="text" class="name_parser" value="" placeholder="Название категории"><br>
+<input type="text" class="name_source"
+       value="<?= !empty($arParams["source_pars"]["name"]) ? $arParams["source_pars"]["name"] : ""; ?>"
+       placeholder="Название источника"><br>
+<input type="text" class="name_parser"
+       value="<?= !empty($arParams["list_parser"]["name"]) ? $arParams["list_parser"]["name"] : ""; ?>"
+       placeholder="Название категории"><br>
 <textarea class="site_url" placeholder="Ссылка на сайт"></textarea><br>
-<input type="text" class="item" value="" placeholder="Класс элемента"><br>
-<input type="text" class="next_link" value="" placeholder="класс paginator'a"><br>
+<input type="text" class="item"
+       value="<?= !empty($arParams["properties_parser"]["class_item"]) ? $arParams["properties_parser"]["class_item"] : ""; ?>"
+       placeholder="Класс элемента"><br>
+<input type="text" class="next_link" value="<?= !empty($arParams["properties_parser"]["next_link"]) ? $arParams["properties_parser"]["next_link"] : ""; ?>" placeholder="класс paginator'a"><br>
 <input type="text" class="name_item" value="" placeholder="название товара"><br>
 <input type="text" class="code_item" value="" placeholder="код товара"><br>
 <textarea class="exceptions" placeholder="исключения"></textarea><br>
@@ -37,7 +64,7 @@
             });
         });
         $('.save_pars').click(function () {
-            var Data = {parser:{}};
+            var Data = {parser: {}};
             Data.parser['id_pars'] = $('.id_pars').val();
             Data.parser['name_source'] = $('.name_source').val();
             Data.parser['name_parser'] = $('.name_parser').val();
