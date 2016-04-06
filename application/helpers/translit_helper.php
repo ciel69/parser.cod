@@ -15,10 +15,10 @@ function rus2translit($text)
     $rus_alphabet_translit = array(
         'A', 'B', 'V', 'G', 'D', 'E', 'IO', 'ZH', 'Z', 'I', 'I',
         'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F',
-        'H', 'C', 'CH', 'SH', 'SH', '`', 'Y', '`', 'E', 'IU', 'IA',
+        'H', 'C', 'CH', 'SH', 'SH', '', 'Y', '', 'E', 'IU', 'IA',
         'a', 'b', 'v', 'g', 'd', 'e', 'io', 'zh', 'z', 'i', 'i',
         'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f',
-        'h', 'c', 'ch', 'sh', 'sh', '`', 'y', '`', 'e', 'iu', 'ia'
+        'h', 'c', 'ch', 'sh', 'sh', '', 'y', '', 'e', 'iu', 'ia'
     );
 
     return str_replace($rus_alphabet, $rus_alphabet_translit, $text);

@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Created by PhpStorm.
@@ -14,49 +14,93 @@ class Parser_list extends CI_Model
 
     public function __construct()
     {
+        $this->load->helper('translit');
         parent::__construct();
     }
 
-    public function get_list_parser($start_count = 0, $end_count = 10){
-        $query = $this->db->get('list_parser',$start_count, $end_count);
+    public function get_list_parser($source, $start_count = 0, $end_count = 10)
+    {
+        $this->db->where('tr_name', $source);
+        $query = $this->db->get('source_pars', $start_count, $end_count);
+        foreach ($query->result() as $row) {
+            $id_source = $row->id;
+        }
+        $this->db->where('id_source', $id_source);
+        $query = $this->db->get('list_parser', $start_count, $end_count);
         return $query->result();
     }
-    public function add_parser($arProp){
-        if (!empty($arProp["name_source"])){
+    public function get_list_source($start_count = 0, $end_count = 10)
+    {
+        $query = $this->db->get('source_pars', $start_count, $end_count);
+        return $query->result();
+    }
+
+    public function add_parser($arProp)
+    {
+        //num_rows
+        $query = $this->db->query("SELECT * FROM reviews.source_pars WHERE name = '" . $arProp["name_source"] . "'");
+        if ($query->num_rows() == 0) {
             $data = array(
-                "name" => $arProp["name_source"]
+                "name" => $arProp["name_source"],
+                "tr_name" => rus2translit($arProp["name_source"])
             );
             $this->db->insert('source_pars', $data);
             unset($data);
             sleep(1);
+            $query = $this->db->query("SELECT * FROM reviews.source_pars WHERE name = '" . $arProp["name_source"] . "'");
         }
-        $query = $this->db->query("SELECT * FROM reviews.source_pars WHERE name = '".$arProp["name_source"]."'");
-        foreach ($query->result() as $row)
-        {
+
+        foreach ($query->result() as $row) {
             $id = $row->id;
         }
-        $data = array(
-            'id_source' => $id ,
-            "name" => $arProp["name_parser"]
-        );
-        $this->db->insert('list_parser', $data);
-        sleep(1);
-        $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE name = '".$arProp["name_parser"]."'");
-        foreach ($query->result() as $row)
-        {
-            $id = $row->id;
+        $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE name = '" . $arProp["name_parser"] . "' AND id_source = '".$id."'");
+        if ($query->num_rows() == 0) {
+            $data = array(
+                'id_source' => $id,
+                "name" => $arProp["name_parser"]
+            );
+            $this->db->insert('list_parser', $data);
+            sleep(1);
+            $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE name = '" . $arProp["name_parser"] . "'");
+            foreach ($query->result() as $row) {
+                $id_parser = $row->id;
+            }
+            $data = array(
+                'id_parser' => $id_parser,
+                'class_item' => $arProp["item"],
+                'next_link' => $arProp["next_link"]
+            );
+            $this->db->insert('properties_parser', $data);
+        } else {
+            foreach ($query->result() as $row) {
+                $id_parser = $row->id;
+            }
+            $query = $this->db->query("SELECT * FROM reviews.properties_parser WHERE id_parser = '".$id_parser."'");
+            foreach ($query->result() as $row) {
+                $id = $row->id;
+            }
+            $data = array(
+                "id_parser" => $id_parser,
+                "class_item" => $arProp["item"],
+                "next_link" => $arProp["next_link"]
+            );
+            $this->db->where('id', $id);
+            $this->db->update('properties_parser', $data);
         }
-        $data = array(
-            'id_parser' => $id ,
-            'class_item' => $arProp["item"]
-        );
-        $this->db->insert('properties_parser', $data);
-        return $id;
+        return $id_parser;
     }
-    public function select_pars($id){
+
+    public function select_pars($id)
+    {
         $this->id = $id;
-        $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE id = '$this->id'");
-        return $query->result();
+        $query = $this->db->query("SELECT * FROM reviews.properties_parser WHERE id_parser = '$this->id'");
+        $query1 = $this->db->query("SELECT * FROM reviews.list_parser WHERE id = '$this->id'");
+        foreach ($query1->result() as $row) {
+            $id_source = $row->id_source;
+        }
+        $query2 = $this->db->query("SELECT * FROM reviews.source_pars WHERE reviews.source_pars.id = '$id_source'");
+        $arResult = array_merge(array("properties_parser" => $query->result_array()), array("list_parser" => $query1->result_array()), array("source_pars" => $query2->result_array()));
+        return $arResult;
     }
     /*public function update_parser($arParams){
         $data = array(
