@@ -29,12 +29,5 @@ class Administration extends CI_Controller
         }
         $this->load->view('templates/footer');
     }
-
-    /*public function add()
-    {
-        $data["name_pars"] = $this->input->post('name_pars');
-        $this->load->view('templates/header');
-        $this->load->view('administration/parser', $data);
-        $this->load->view('templates/footer');
-    }*/
+    
 }
