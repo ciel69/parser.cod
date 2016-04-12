@@ -53,7 +53,6 @@ class Ajax extends CI_Controller
         foreach ($rowSite_url as $cell => $site_url) {
             $arInputs["site_url"] = $site_url;
             $result = $this->parser_select->categories($arInputs, 0);
-
         }
         echo "Я спарсил";
     }
@@ -85,6 +84,17 @@ class Ajax extends CI_Controller
         $arParser = $this->input->post('parser');
         $this->load->model('parser_list');
         $res = $this->parser_list->add_parser($arParser);
+        echo json_encode(array('success'=>$res));
+    }
+    public function source(){
+        $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
+        if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
+            echo "не-аякс не разрешен. пошел вон грязный хакир.";
+            return;
+        }
+        $id_source = $this->input->post('id_source');
+        $this->load->model('parser_list');
+        $res = $this->parser_list->source($id_source);
         echo json_encode(array('success'=>$res));
     }
 }
