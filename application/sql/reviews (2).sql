@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `list_parser` (
 -- Дамп данных таблицы `list_parser`
 --
 
-INSERT INTO `list_parser` (`id`, `name`, `id_source`) VALUES
+INSERT INTO `list_parser` (`id`, name_parser, `id_source`) VALUES
 (17, 'Смартфоны', 7),
 (19, 'Смарт-часы', 6),
 (21, 'Смарт-часы', 8),
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `properties_parser` (
 -- Дамп данных таблицы `properties_parser`
 --
 
-INSERT INTO `properties_parser` (`id`, `class_item`, `name`, `id_parser`, `next_link`) VALUES
+INSERT INTO `properties_parser` (`id`, `class_item`, name_item, `id_parser`, `next_link`) VALUES
 (1, '', NULL, 19, ''),
 (2, '', NULL, 21, NULL),
 (3, '', NULL, 23, ''),
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `source_pars` (
 -- Дамп данных таблицы `source_pars`
 --
 
-INSERT INTO `source_pars` (`id`, `name`, `tr_name`) VALUES
+INSERT INTO `source_pars` (`id`, name_source, `tr_name`) VALUES
 (3, 'Эльдорадо', 'Eldorado'),
 (6, 'DNS', 'DNS'),
 (8, 'М-видео', 'M-video'),

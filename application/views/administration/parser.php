@@ -4,32 +4,39 @@ if (!empty($item_parser)) {
         foreach ($arItemObjects as $objItem) {
             foreach ($objItem as $cell => $item) {
                 $arParams[$key][$cell] = $item;
+                if($cell == "id"||$cell == "id_parser"||$cell == "id_source"||$cell == "tr_name"){
+                    continue;
+                }
+                ?>
+                <input type="text" class="<?=$cell;?>" value="<?=$item;?>"><br>
+<?
             }
         }
     }
 } else {
     $arParams = array();
+    ?>
+    <input type="hidden" class="id_pars" value="">
+    <input type="text" class="name_source"
+           value="<?= !empty($arParams["source_pars"]["name"]) ? $arParams["source_pars"]["name"] : ""; ?>"
+           placeholder="Название источника"><br>
+    <input type="text" class="name_parser"
+           value="<?= !empty($arParams["list_parser"]["name"]) ? $arParams["list_parser"]["name"] : ""; ?>"
+           placeholder="Название категории"><br>
+    <textarea class="url" placeholder="Ссылка на сайт"></textarea><br>
+    <input type="text" class="class_item"
+           value="<?= !empty($arParams["properties_parser"]["class_item"]) ? $arParams["properties_parser"]["class_item"] : ""; ?>"
+           placeholder="Класс элемента"><br>
+    <input type="text" class="next_link" value="<?= !empty($arParams["properties_parser"]["next_link"]) ? $arParams["properties_parser"]["next_link"] : ""; ?>" placeholder="класс paginator'a"><br>
+    <input type="text" class="name_item" value="" placeholder="название товара"><br>
+    <input type="text" class="code_item" value="" placeholder="код товара"><br>
+    <textarea class="exceptions" placeholder="исключения"></textarea><br>
+    <textarea class="link_reviews" placeholder="шаблон ссылки на отзывы"></textarea><br>
+    <input type="text" class="class_review" value="" placeholder="класс текста отзыва"><br>
+    <input type="text" class="class_page_rev" value="" placeholder="след страница отзывов"><br>
+    <?
 }
-
 ?>
-<input type="hidden" class="id_pars" value="">
-<input type="text" class="name_source"
-       value="<?= !empty($arParams["source_pars"]["name"]) ? $arParams["source_pars"]["name"] : ""; ?>"
-       placeholder="Название источника"><br>
-<input type="text" class="name_parser"
-       value="<?= !empty($arParams["list_parser"]["name"]) ? $arParams["list_parser"]["name"] : ""; ?>"
-       placeholder="Название категории"><br>
-<textarea class="site_url" placeholder="Ссылка на сайт"></textarea><br>
-<input type="text" class="item"
-       value="<?= !empty($arParams["properties_parser"]["class_item"]) ? $arParams["properties_parser"]["class_item"] : ""; ?>"
-       placeholder="Класс элемента"><br>
-<input type="text" class="next_link" value="<?= !empty($arParams["properties_parser"]["next_link"]) ? $arParams["properties_parser"]["next_link"] : ""; ?>" placeholder="класс paginator'a"><br>
-<input type="text" class="name_item" value="" placeholder="название товара"><br>
-<input type="text" class="code_item" value="" placeholder="код товара"><br>
-<textarea class="exceptions" placeholder="исключения"></textarea><br>
-<textarea class="link_reviews" placeholder="шаблон ссылки на отзывы"></textarea><br>
-<input type="text" class="class_review" value="" placeholder="класс текста отзыва"><br>
-<input type="text" class="class_page_rev" value="" placeholder="след страница отзывов"><br>
 <input type="submit" class="pars" value="Ok">
 <input type="submit" class="save_pars" value="Save">
 <script>
@@ -61,8 +68,8 @@ if (!empty($item_parser)) {
             Data.parser['id_pars'] = $('.id_pars').val();
             Data.parser['name_source'] = $('.name_source').val();
             Data.parser['name_parser'] = $('.name_parser').val();
-            Data.parser['url'] = $('.site_url').val();
-            Data.parser['item'] = $('.item').val();
+            Data.parser['url'] = $('.url').val();
+            Data.parser['class_item'] = $('.class_item').val();
             Data.parser['next_link'] = $('.next_link').val();
             Data.parser['name_item'] = $('.name_item').val();
             Data.parser['code_item'] = $('.code_item').val();

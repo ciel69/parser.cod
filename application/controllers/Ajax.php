@@ -97,4 +97,7 @@ class Ajax extends CI_Controller
         $res = $this->parser_list->source($id_source);
         echo json_encode(array('success'=>$res));
     }
+    public function parser_properties(){
+
+    }
 }
