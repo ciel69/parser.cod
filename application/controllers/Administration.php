@@ -28,6 +28,9 @@ class Administration extends CI_Controller
             $this->load->view('administration/new_parser', $data);
         }
         $this->load->view('templates/footer');
+        /*
+         * comments test
+         */
     }
     
 }
