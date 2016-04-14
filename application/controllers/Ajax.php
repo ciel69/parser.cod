@@ -94,10 +94,18 @@ class Ajax extends CI_Controller
         }
         $id_source = $this->input->post('id_source');
         $this->load->model('parser_list');
-        $res = $this->parser_list->source($id_source);
+        $res = $this->parser_list->get_source($id_source);
         echo json_encode(array('success'=>$res));
     }
-    public function parser_properties(){
-
+    public function item_parser(){
+        $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
+        if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
+            echo "не-аякс не разрешен. пошел вон грязный хакир.";
+            return;
+        }
+        $id_parser = $this->input->post('id_parser');
+        $this->load->model('parser_list');
+        $res = $this->parser_list->get_parser($id_parser);
+        echo json_encode(array('success'=>$res));
     }
 }

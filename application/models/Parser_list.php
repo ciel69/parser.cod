@@ -119,10 +119,17 @@ class Parser_list extends CI_Model
         return $arResult;
     }
 
-    public function source($id)
+    public function get_source($id)
     {
         $this->db->where('id_source', $id);
         $query = $this->db->get('list_parser');
+        return $query->result();
+    }
+
+    public function get_parser($id)
+    {
+        $this->db->where('id_parser', $id);
+        $query = $this->db->get('properties_parser');
         return $query->result();
     }
     /*public function update_parser($arParams){
