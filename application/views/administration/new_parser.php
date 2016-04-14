@@ -4,8 +4,8 @@
 </form>
 <?
 if (!empty($list_parser)) {
-    foreach ($list_parser as $key => $item_parser):?>
-        <a href="<?= request_url() . "/" . $item_parser->id ?>"><?= $item_parser->name_parser ?></a>
+    foreach ($list_parser as $key => $item_parser): ?>
+        <a href="<?= request_url() . "/" . $item_parser->id ?>"><?= $item_parser->name_parser?></a>
     <?endforeach;
 } ?>
 <?

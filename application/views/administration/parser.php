@@ -1,40 +1,44 @@
-<?
+<?php
 if (!empty($item_parser)) {
+    $property_def = $this->parser_list->get_default_property();
+    
+    foreach ($property_def as $arItem) {
+        foreach ($arItem as $cell=>$item){
+            $property_default[$cell] = $item;
+            echo "<pre>";
+            var_dump($cell);
+            echo "</pre>";
+        }
+    }
+//    var_dump($property_def);
     foreach ($item_parser as $key => $arItemObjects) {
+        echo "<pre>";
+        var_dump($arItemObjects);
+        echo "</pre>";
+        if(!empty($arItemObjects))
+        $arItemObjects = array_replace($property_def, $arItemObjects);
+        echo "<pre>";
+        var_dump($arItemObjects);
+        echo "</pre>";
         foreach ($arItemObjects as $objItem) {
             foreach ($objItem as $cell => $item) {
                 $arParams[$key][$cell] = $item;
-                if($cell == "id"||$cell == "id_parser"||$cell == "id_source"||$cell == "tr_name"){
+                if ($cell == "id" || $cell == "id_parser" || $cell == "id_source" || $cell == "tr_name") {
                     continue;
                 }
-                ?>
-                <input type="text" class="<?=$cell;?>" value="<?=$item;?>"><br>
-<?
+                //array_replace
+
+                $property = $this->parser_list->get_list_property($cell);
+                echo formation_form($item, $property);
             }
         }
+        unset($arItemObjects);
     }
 } else {
-    $arParams = array();
-    ?>
-    <input type="hidden" class="id_pars" value="">
-    <input type="text" class="name_source"
-           value="<?= !empty($arParams["source_pars"]["name"]) ? $arParams["source_pars"]["name"] : ""; ?>"
-           placeholder="Название источника"><br>
-    <input type="text" class="name_parser"
-           value="<?= !empty($arParams["list_parser"]["name"]) ? $arParams["list_parser"]["name"] : ""; ?>"
-           placeholder="Название категории"><br>
-    <textarea class="url" placeholder="Ссылка на сайт"></textarea><br>
-    <input type="text" class="class_item"
-           value="<?= !empty($arParams["properties_parser"]["class_item"]) ? $arParams["properties_parser"]["class_item"] : ""; ?>"
-           placeholder="Класс элемента"><br>
-    <input type="text" class="next_link" value="<?= !empty($arParams["properties_parser"]["next_link"]) ? $arParams["properties_parser"]["next_link"] : ""; ?>" placeholder="класс paginator'a"><br>
-    <input type="text" class="name_item" value="" placeholder="название товара"><br>
-    <input type="text" class="code_item" value="" placeholder="код товара"><br>
-    <textarea class="exceptions" placeholder="исключения"></textarea><br>
-    <textarea class="link_reviews" placeholder="шаблон ссылки на отзывы"></textarea><br>
-    <input type="text" class="class_review" value="" placeholder="класс текста отзыва"><br>
-    <input type="text" class="class_page_rev" value="" placeholder="след страница отзывов"><br>
-    <?
+    $property = $this->parser_list->get_default_property();
+    foreach ($property as $item) {
+        echo formation_default_form($item);
+    }
 }
 ?>
 <input type="submit" class="pars" value="Ok">
@@ -89,4 +93,3 @@ if (!empty($item_parser)) {
         });
     });
 </script>
-

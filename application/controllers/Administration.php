@@ -7,6 +7,7 @@ class Administration extends CI_Controller
     {
         $this->load->helper('translit');
         $this->load->helper('request_url');
+        $this->load->helper('formation_helper');
         $this->load->library('ion_auth');
         if (!$this->ion_auth->logged_in()) {
             redirect('/auth/login/', 'refresh');

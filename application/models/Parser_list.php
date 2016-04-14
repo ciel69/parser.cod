@@ -132,6 +132,16 @@ class Parser_list extends CI_Model
         $query = $this->db->get('properties_parser');
         return $query->result();
     }
+
+    function get_list_property($item){
+        $this->db->where('class_property', $item);
+        $query = $this->db->get('default_property');
+        return $query->result_array();
+    }
+    function get_default_property(){
+        $query = $this->db->get('default_property');
+        return $query->result_array();
+    }
     /*public function update_parser($arParams){
         $data = array(
             "id" => $arParams["id"],
