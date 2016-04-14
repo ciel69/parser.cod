@@ -1,15 +1,8 @@
 <?
 if (!empty($item_parser)) {
     foreach ($item_parser as $key => $arItemObjects) {
-            /* echo "<pre>";
-             var_dump($key);
-             echo "</pre>";*/
         foreach ($arItemObjects as $objItem) {
             foreach ($objItem as $cell => $item) {
-                /*echo "<pre>";
-                var_dump($cell);
-                var_dump($item);
-                echo "</pre>";*/
                 $arParams[$key][$cell] = $item;
             }
         }
