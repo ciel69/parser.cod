@@ -5,7 +5,7 @@
 <?
 if (!empty($list_parser)) {
     foreach ($list_parser as $key => $item_parser): ?>
-        <a href="<?= request_url() . "/" . $item_parser->id ?>"><?= $item_parser->name_parser?></a>
+        <a href="<?= request_url() . "/" . $item_parser->id ?>"><?= $item_parser->value?></a>
     <?endforeach;
 } ?>
 <?
@@ -14,7 +14,7 @@ if (!empty($list_source)) :?>
     <? foreach ($list_source as $key => $item_parser): ?>
         <div class="item-pars">
             <a href="/administration/parser/<?= $item_parser->tr_name ?>"
-               data-id="<?= $item_parser->id ?>"><?= $item_parser->name_source ?></a>
+               data-id="<?= $item_parser->id ?>"><?= $item_parser->value ?></a>
             <input type="submit" class="start-parser">
         </div>
     <? endforeach; ?>

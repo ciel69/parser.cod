@@ -1,39 +1,44 @@
 <?php
 if (!empty($item_parser)) {
     $property_def = $this->parser_list->get_default_property();
-    
-    foreach ($property_def as $key =>$arItem) {
-//        $arItem[$arItem["class_property"]][] = $arItem;
+    $newItem = array();
+    $DefItem = array();
+    $arDefItem = array();
 
-//vdgu($arItem["class_property"]);
-        foreach ($arItem as $cell=>$item){
-            $arItem[$arItem["class_property"]][] = $item;
+    foreach ($property_def as $key =>$arItem) {
+        if(!empty($arItem["class_property"])) {
+            $DefItem[$arItem["class_property"]] = $arItem;
         }
     }
-vdgu($arItem);
-//    var_dump($property_def);
     foreach ($item_parser as $key => $arItemObjects) {
-
-        if(!empty($arItemObjects))
-        $arItemObjects = array_replace($property_def, $arItemObjects);
+        if($key == "name_parser"){
+            $arParams[$key] = $arItemObjects[0];
+            continue;
+        }
+        if($key == "name_source"){
+            $arParams[$key] = $arItemObjects[0];
+            continue;
+        }
         foreach ($arItemObjects as $objItem) {
-            foreach ($objItem as $cell => $item) {
-                $arParams[$key][$cell] = $item;
-                if ($cell == "id" || $cell == "id_parser" || $cell == "id_source" || $cell == "tr_name") {
-                    continue;
-                }
-                //array_replace
-
-                $property = $this->parser_list->get_list_property($cell);
-//                echo formation_form($item, $property);
+            if(!empty($objItem["name_property"])) {
+                $arParams[$objItem["name_property"]] = $objItem;
             }
         }
-        unset($arItemObjects);
+    }
+    $arDefItem = $DefItem;
+    $newDefItem = array_replace($DefItem, $arParams);
+    foreach ($newDefItem as $cell=>$item){
+        if(!empty($arDefItem[$cell])) {
+            $newDefItem[$cell] = array_replace($newDefItem[$cell], $arDefItem[$cell]);
+        }
+    }
+    foreach ($newDefItem as $cell=>$item){
+        formation_form($item);
     }
 } else {
     $property = $this->parser_list->get_default_property();
     foreach ($property as $item) {
-        echo formation_default_form($item);
+        formation_default_form($item);
     }
 }
 ?>
@@ -77,6 +82,7 @@ vdgu($arItem);
             Data.parser['link_reviews'] = $('.link_reviews').val();
             Data.parser['class_review'] = $('.class_review').val();
             Data.parser['class_page_rev'] = $('.class_page_rev').val();
+            console.log(Data);
             $.ajax({
                 type: "POST",
                 url: "<?=base_url()?>ajax/save_parser",
