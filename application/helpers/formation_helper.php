@@ -23,3 +23,10 @@ function formation_default_form($property)
     return $line;
 }
 
+function vdgu($result){
+    echo '<pre>';
+    var_dump($result);
+    echo '</pre>';
+    return;
+}
+

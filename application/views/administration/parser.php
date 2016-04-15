@@ -2,24 +2,20 @@
 if (!empty($item_parser)) {
     $property_def = $this->parser_list->get_default_property();
     
-    foreach ($property_def as $arItem) {
+    foreach ($property_def as $key =>$arItem) {
+//        $arItem[$arItem["class_property"]][] = $arItem;
+
+//vdgu($arItem["class_property"]);
         foreach ($arItem as $cell=>$item){
-            $property_default[$cell] = $item;
-            echo "<pre>";
-            var_dump($cell);
-            echo "</pre>";
+            $arItem[$arItem["class_property"]][] = $item;
         }
     }
+vdgu($arItem);
 //    var_dump($property_def);
     foreach ($item_parser as $key => $arItemObjects) {
-        echo "<pre>";
-        var_dump($arItemObjects);
-        echo "</pre>";
+
         if(!empty($arItemObjects))
         $arItemObjects = array_replace($property_def, $arItemObjects);
-        echo "<pre>";
-        var_dump($arItemObjects);
-        echo "</pre>";
         foreach ($arItemObjects as $objItem) {
             foreach ($objItem as $cell => $item) {
                 $arParams[$key][$cell] = $item;
@@ -29,7 +25,7 @@ if (!empty($item_parser)) {
                 //array_replace
 
                 $property = $this->parser_list->get_list_property($cell);
-                echo formation_form($item, $property);
+//                echo formation_form($item, $property);
             }
         }
         unset($arItemObjects);
