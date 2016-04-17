@@ -1,4 +1,4 @@
-<form action="<?= base_url() ?>administration/parser/add" method="post">
+<form action="<?= request_url() ?>/add" method="post">
     <input type="text" name="name_pars" class="name_parser">
     <input type="submit" class="add_parser" value="ок">
 </form>
