@@ -297,7 +297,7 @@ ALTER TABLE `properties_parser`
 --
 ALTER TABLE `source_pars`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `source_pars_name_uindex` (`name_source`);
+  ADD UNIQUE KEY `source_pars_name_uindex` (value);
 
 --
 -- Индексы таблицы `table_test`
