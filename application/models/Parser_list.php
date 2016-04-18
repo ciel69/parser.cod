@@ -144,25 +144,26 @@ class Parser_list extends CI_Model
         return $query->result();
     }
 
-    function get_list_property($item)
+    public function get_list_property($item)
     {
         $this->db->where('class_property', $item);
         $query = $this->db->get('default_property');
         return $query->result_array();
     }
 
-    function get_default_property()
+    public function get_default_property()
     {
         $query = $this->db->get('default_property');
         return $query->result_array();
     }
-    /*public function update_parser($arParams){
-        $data = array(
-            "id" => $arParams["id"],
-            "name" => $arParams["name"]
-        );
-        $this->id = $id;
-        $this->date= time();
-        $this->db->update('properties_parser', $this, array('id' => $_POST['id']));
-    }*/
+    public function get_property_source($item){
+        $this->db->where('tr_name', $item);
+        $query = $this->db->get('source_pars');
+        $row = $query->row_array();
+        $query->free_result();
+        $this->db->where('id_source', $row["id"]);
+        $query = $this->db->get('list_parser');
+
+//        return $query->result_array();
+    }
 }
