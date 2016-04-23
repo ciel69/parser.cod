@@ -170,8 +170,9 @@ class Parser_list extends CI_Model
         $arResult = array_merge(array("prop" => $query->result_array()), array("name_parser" => $row_parser), array("name_source" => $row_source));
         return $arResult;
     }
-//    public function get_prop_last_pars($id){
-//        $this->db->where('id_source', $row["id"]);
-//        $query = $this->db->get('list_parser');
-//    }
+    public function get_prop_parser($id){
+        $this->db->where('id_parser', $id);
+        $query = $this->db->get('prop_parser');
+        return $query->result_array();
+    }
 }

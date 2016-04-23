@@ -20,7 +20,7 @@ class Parser_select extends CI_Model
         $this->load->helper('file');
         $this->load->database();
         //gc_enable();
-        require_once "/public/phpQuery.php";
+        require_once "./public/phpQuery.php";
     }
 
     /**
@@ -79,7 +79,7 @@ class Parser_select extends CI_Model
         $code_item = $document->find($arInputs["code_item"]);
         $code_item = explode($arInputs["exceptions"], $code_item);
         $arInputs["code"] = $code_item[1];
-        self::reviews($arInputs, 0);
+//        self::reviews($arInputs, 0);
     }
 
     public function reviews($arInputs, $count)

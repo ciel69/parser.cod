@@ -33,23 +33,40 @@ if (!empty($list_source)) :?>
                 dataType: 'json',
                 success: function (msg) {
                     msg.success.forEach(function (item, i, arr) {
-                        console.log(i);
-                        console.log(item);
+/*                        console.log(i);
+                        console.log(item);*/
                         console.log(item.id);
                         var id_pars ={};
                         id_pars['id_parser'] = item.id;
-                        /*$.ajax({
+                        $.ajax({
                             type: "POST",
-                            url: "<?=base_url()?>ajax/get_prop_parser",
+                            url: "<?=base_url()?>ajax/get_properties",
                             data: id_pars,
                             dataType: 'json',
                             success: function (msg) {
-                                msg.success.forEach(function (item, i, arr) {
-                                    console.log(i);
-                                    console.log(item);
-                                });
+                                var id_item;
+                                var obj_prop = {};
+
+                                if (Object.keys(msg).length != 0) {
+                                    console.log(msg);
+                                    msg.forEach(function (item, i, arr) {
+                                        if (!id_item) {
+                                            id_item = item.id_parser;
+                                        }
+                                        if (item.id_parser == id_item && item.value != "") {
+                                            var property = item.name_property;
+                                            obj_prop[item.name_property] = item.value;
+                                        }
+
+                                        id_item = item.id_parser;
+                                    });
+//                                console.log(obj_prop);
+                                    if (Object.keys(obj_prop).length != 0) {
+                                        console.log(obj_prop);
+                                    }
+                                }
                             }
-                        });*/
+                        });
 
                     });
                 }

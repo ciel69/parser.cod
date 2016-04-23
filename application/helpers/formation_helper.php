@@ -26,15 +26,14 @@ function vdgu($result){
 }
 
 function format_array_parser($property_def, $data_items){
-    $newItem = array();
     $DefItem = array();
-    $arDefItem = array();
 
     foreach ($property_def as $key => $arItem) {
         if (!empty($arItem["class_property"])) {
             $DefItem[$arItem["class_property"]] = $arItem;
         }
     }
+    unset($property_def);
     foreach ($data_items as $key => $arItemObjects) {
         if(!empty($arItemObjects[0])) {
             if ($key == "name_parser") {
@@ -61,6 +60,7 @@ function format_array_parser($property_def, $data_items){
             }
         }
     }
+    unset($data_items);
     $newDefItem = array_replace($DefItem, $arParams);
     foreach ($newDefItem as $cell => $item) {
         if (!empty($DefItem[$cell])) {

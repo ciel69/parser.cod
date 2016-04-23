@@ -39,7 +39,7 @@ class Ajax extends CI_Controller
         }
 
         $url = $this->input->post('url');
-        $arInputs["item_class"] = $this->input->post('item');
+        $arInputs["item_class"] = $this->input->post('class_item');
         $arInputs["next_link"] = $this->input->post('next_link');
         $arInputs["name_item"] = $this->input->post('name_item');
         $arInputs["code_item"] = $this->input->post('code_item');
@@ -107,5 +107,17 @@ class Ajax extends CI_Controller
         $this->load->model('parser_list');
         $res = $this->parser_list->get_parser($id_parser);
         echo json_encode(array('success'=>$res));
+    }
+
+    public function get_properties(){
+        $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
+        if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
+            echo "не-аякс не разрешен. пошел вон грязный хакир.";
+            return;
+        }
+        $id_parser = $this->input->post('id_parser');
+        $this->load->model('parser_list');
+        $res = $this->parser_list->get_prop_parser($id_parser);
+        echo json_encode($res);
     }
 }

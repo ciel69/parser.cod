@@ -11,14 +11,14 @@ if (!empty($newDefItem)) {
     }
 }
 ?>
-<!--<input type="submit" class="pars" value="Ok">-->
+<input type="submit" class="pars" value="Ok">
 <input type="submit" class="save_pars" value="Save">
 <script>
     $(document).ready(function () {
         $('.pars').click(function () {
             var Data = {};
-            Data['url'] = $('.site_url').val();
-            Data['item'] = $('.item').val();
+            Data['url'] = $('.url').val();
+            Data['class_item'] = $('.class_item').val();
             Data['next_link'] = $('.name_source').val();
             Data['next_link'] = $('.next_link').val();
             Data['name_item'] = $('.name_item').val();
