@@ -23,42 +23,18 @@ class Administration extends CI_Controller
             $this->load->view('administration/new_parser', $data);
         } elseif (!empty($pars)) {
             if ($pars == "add") {
+                echo $settings;
+                $property_def = $this->parser_list->get_default_property();
+                $arItems = $this->parser_list->get_property_source($settings);
+
+                $data["newDefItem"] = format_array_parser($property_def, $arItems);
 //todo написать функцию получения св-в последнего парсера данного источника
+                $this->load->view('administration/parser', $data);
             } else {
                 $data["item_parser"] = $this->parser_list->select_pars($pars);
                 $property_def = $this->parser_list->get_default_property();
-                $newItem = array();
-                $DefItem = array();
-                $arDefItem = array();
 
-                foreach ($property_def as $key => $arItem) {
-                    if (!empty($arItem["class_property"])) {
-                        $DefItem[$arItem["class_property"]] = $arItem;
-                    }
-                }
-                foreach ($data["item_parser"] as $key => $arItemObjects) {
-                    if ($key == "name_parser") {
-                        $arParams[$key] = $arItemObjects[0];
-                        continue;
-                    }
-                    if ($key == "name_source") {
-                        $arParams[$key] = $arItemObjects[0];
-                        continue;
-                    }
-                    foreach ($arItemObjects as $objItem) {
-                        if (!empty($objItem["name_property"])) {
-                            $arParams[$objItem["name_property"]] = $objItem;
-                        }
-                    }
-                }
-                $newDefItem = array_replace($DefItem, $arParams);
-                foreach ($newDefItem as $cell => $item) {
-                    if (!empty($DefItem[$cell])) {
-                        unset($DefItem[$cell]["value"]);
-                        $newDefItem[$cell] = array_replace($newDefItem[$cell], $DefItem[$cell]);
-                    }
-                }
-                $data["newDefItem"] = $newDefItem;
+                $data["newDefItem"] = format_array_parser($property_def, $data["item_parser"]);;
                 $this->load->view('administration/parser', $data);
             }
         } else {

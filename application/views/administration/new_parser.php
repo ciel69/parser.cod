@@ -33,12 +33,14 @@ if (!empty($list_source)) :?>
                 dataType: 'json',
                 success: function (msg) {
                     msg.success.forEach(function (item, i, arr) {
+                        console.log(i);
+                        console.log(item);
                         console.log(item.id);
                         var id_pars ={};
                         id_pars['id_parser'] = item.id;
-                        $.ajax({
+                        /*$.ajax({
                             type: "POST",
-                            url: "<?=base_url()?>ajax/item_parser",
+                            url: "<?=base_url()?>ajax/get_prop_parser",
                             data: id_pars,
                             dataType: 'json',
                             success: function (msg) {
@@ -47,7 +49,7 @@ if (!empty($list_source)) :?>
                                     console.log(item);
                                 });
                             }
-                        });
+                        });*/
 
                     });
                 }

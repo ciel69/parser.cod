@@ -159,11 +159,19 @@ class Parser_list extends CI_Model
     public function get_property_source($item){
         $this->db->where('tr_name', $item);
         $query = $this->db->get('source_pars');
-        $row = $query->row_array();
+        $row_source = $query->row_array();
         $query->free_result();
-        $this->db->where('id_source', $row["id"]);
-        $query = $this->db->get('list_parser');
-
+        $query = $this->db->query("SELECT * FROM list_parser WHERE list_parser.id_source = ".$row_source["id"]." ORDER BY list_parser.id DESC LIMIT 1");
+        $row_parser = $query->result_array();
+        $query->free_result();
+        $this->db->where('id_parser', $row_parser[0]["id"]);
+        $query = $this->db->get('prop_parser');
 //        return $query->result_array();
+        $arResult = array_merge(array("prop" => $query->result_array()), array("name_parser" => $row_parser), array("name_source" => $row_source));
+        return $arResult;
     }
+//    public function get_prop_last_pars($id){
+//        $this->db->where('id_source', $row["id"]);
+//        $query = $this->db->get('list_parser');
+//    }
 }

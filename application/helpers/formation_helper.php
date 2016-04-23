@@ -25,3 +25,49 @@ function vdgu($result){
     echo '</pre>';
 }
 
+function format_array_parser($property_def, $data_items){
+    $newItem = array();
+    $DefItem = array();
+    $arDefItem = array();
+
+    foreach ($property_def as $key => $arItem) {
+        if (!empty($arItem["class_property"])) {
+            $DefItem[$arItem["class_property"]] = $arItem;
+        }
+    }
+    foreach ($data_items as $key => $arItemObjects) {
+        if(!empty($arItemObjects[0])) {
+            if ($key == "name_parser") {
+                $arParams[$key] = $arItemObjects[0];
+                continue;
+            }
+            if ($key == "name_source") {
+                $arParams[$key] = $arItemObjects[0];
+                continue;
+            }
+        } else {
+            if ($key == "name_parser") {
+                $arParams[$key] = $arItemObjects;
+                continue;
+            }
+            if ($key == "name_source") {
+                $arParams[$key] = $arItemObjects;
+                continue;
+            }
+        }
+        foreach ($arItemObjects as $objItem) {
+            if (!empty($objItem["name_property"])) {
+                $arParams[$objItem["name_property"]] = $objItem;
+            }
+        }
+    }
+    $newDefItem = array_replace($DefItem, $arParams);
+    foreach ($newDefItem as $cell => $item) {
+        if (!empty($DefItem[$cell])) {
+            unset($DefItem[$cell]["value"]);
+            $newDefItem[$cell] = array_replace($newDefItem[$cell], $DefItem[$cell]);
+        }
+    }
+    return $newDefItem;
+}
+
