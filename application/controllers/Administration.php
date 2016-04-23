@@ -26,7 +26,6 @@ class Administration extends CI_Controller
 //todo написать функцию получения св-в последнего парсера данного источника
             } else {
                 $data["item_parser"] = $this->parser_list->select_pars($pars);
-
                 $property_def = $this->parser_list->get_default_property();
                 $newItem = array();
                 $DefItem = array();
@@ -52,11 +51,11 @@ class Administration extends CI_Controller
                         }
                     }
                 }
-                $arDefItem = $DefItem;
                 $newDefItem = array_replace($DefItem, $arParams);
                 foreach ($newDefItem as $cell => $item) {
-                    if (!empty($arDefItem[$cell])) {
-                        $newDefItem[$cell] = array_replace($newDefItem[$cell], $arDefItem[$cell]);
+                    if (!empty($DefItem[$cell])) {
+                        unset($DefItem[$cell]["value"]);
+                        $newDefItem[$cell] = array_replace($newDefItem[$cell], $DefItem[$cell]);
                     }
                 }
                 $data["newDefItem"] = $newDefItem;

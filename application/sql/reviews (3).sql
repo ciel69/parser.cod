@@ -163,7 +163,7 @@ INSERT INTO `properties_parser` (`id`, `class_item`, `name_item`, `id_parser`, `
 
 CREATE TABLE IF NOT EXISTS `source_pars` (
   `id` int(11) NOT NULL,
-  `name_source` varchar(145) NOT NULL,
+  `value` varchar(145) NOT NULL,
   `tr_name` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `source_pars` (
 -- Дамп данных таблицы `source_pars`
 --
 
-INSERT INTO `source_pars` (`id`, "value", `tr_name`) VALUES
+INSERT INTO `source_pars` (`id`, `value`, `tr_name`) VALUES
 (3, 'Эльдорадо', 'Eldorado'),
 (6, 'DNS', 'DNS'),
 (8, 'М-видео', 'M-video'),

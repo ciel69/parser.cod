@@ -1,5 +1,6 @@
 <?php
 if (!empty($newDefItem)) {
+//    vdgu($newDefItem);
     foreach ($newDefItem as $cell=>$item){
         formation_form($item);
     }
