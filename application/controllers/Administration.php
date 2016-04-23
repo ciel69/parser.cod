@@ -23,12 +23,10 @@ class Administration extends CI_Controller
             $this->load->view('administration/new_parser', $data);
         } elseif (!empty($pars)) {
             if ($pars == "add") {
-                echo $settings;
                 $property_def = $this->parser_list->get_default_property();
                 $arItems = $this->parser_list->get_property_source($settings);
 
                 $data["newDefItem"] = format_array_parser($property_def, $arItems);
-//todo написать функцию получения св-в последнего парсера данного источника
                 $this->load->view('administration/parser', $data);
             } else {
                 $data["item_parser"] = $this->parser_list->select_pars($pars);
