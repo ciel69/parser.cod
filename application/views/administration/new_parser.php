@@ -62,6 +62,14 @@ if (!empty($list_source)) :?>
                                     });
 //                                console.log(obj_prop);
                                     if (Object.keys(obj_prop).length != 0) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "<?=base_url()?>ajax/parser",
+                                            data: obj_prop,
+                                            dataType: 'json',
+                                            success: function (msg) {
+                                            }
+                                        });
                                         console.log(obj_prop);
                                     }
                                 }
