@@ -1,10 +1,12 @@
 <?php
 echo "<h1>Hello</h1>";
 print_r($base_url);
+
+echo "<pre>"
 ?>
 <ul>
-<?php foreach ($query[0] as $key=>$item):?>
-    <li><?php echo $key.": ".$item;?></li>
+<?php foreach ($query as $key=>$item):?>
+    <li><?php echo $key.": ".$item->username;?></li>
 <?php endforeach;?>
 </ul>
 <?php

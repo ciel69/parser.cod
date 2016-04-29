@@ -17,8 +17,8 @@ class Pages extends CI_Controller
         if (!file_exists(APPPATH . 'views/pages/' . $page . '.php')) {
             show_404();
         }
-        $this->load->model('select_test');
 
+        $this->load->model('select_test');
         $data['query'] = $this->select_test->get_last_ten_entries();
 
         $data['title'] = ucfirst($page); // Capitalize the first letter

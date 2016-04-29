@@ -1,0 +1,270 @@
+<?
+$MESS ['parser_tab'] = "Парсер";
+$MESS ['parser_settings_tab'] = "Дополнительные настройки";
+$MESS ['parser_uniq_tab'] = "Обновление / Уникальность";
+$MESS ['parser_save_error'] = "Ошибка сохранения парсера";
+$MESS ['parser_title_add'] = "Добавление парсера";
+$MESS ['parser_title_edit'] = "Редактирование парсера";
+$MESS ['parser_list'] = "Список";
+$MESS ['parser_list_title'] = "Список парсеров";
+$MESS ['parser_add'] = "Добавить";
+$MESS ['parser_copy'] = "Копировать";
+$MESS ['parser_mnu_add'] = "Добавить новый парсер";
+$MESS ['parser_mnu_copy'] = "Копировать парсер";
+$MESS ['parser_delete'] = "Удалить";
+$MESS ['parser_mnu_del_conf'] = "Удалить парсер?";
+$MESS ['parser_mnu_del_conf'] = "Удалить парсер?";
+$MESS ['parser_start'] = "Запустить";
+$MESS ['parser_start_title'] = "Запустить парсер";
+$MESS ['parser_stop'] = "Остановить";
+$MESS ['parser_stop_title'] = "Остановить парсер";
+$MESS ['parser_saved'] = "Парсер успешно сохранен.";
+$MESS ['parser_act'] = "Активен:";
+$MESS ['parser_name'] = "Название:";
+$MESS ['parser_rss'] = "RSS канал:";
+$MESS ['parser_rss_page'] = "URL страницы:";
+$MESS ['parser_rss_catalog'] = "URL раздела каталога:";
+$MESS ['parser_sort'] = "Сортировка:";
+$MESS ['parser_iblock_id'] = "ID инфоблока:";
+$MESS ['parser_iblock_id_catalog'] = "ID инфоблока-каталога:";
+$MESS ['parser_section_id'] = "ID раздела:";
+$MESS ['parser_selector'] = "Селектор контента:";
+$MESS ['parser_selector_page'] = "Селектор новости на странице списка новостей:";
+$MESS ['parser_selector_preview_catalog'] = "Селектор товара на странице каталога:";
+$MESS ['parser_selector_detail_catalog'] = "Селектор товара на детальной странице:";
+$MESS ['parser_first_url'] = "URL в rss ленте:";
+$MESS ['parser_first_url_page'] = "URL на странице:";
+$MESS ['parser_href_page'] = "Селектор ссылки:";
+$MESS ['parser_href_descr_page'] = "Если ничего не задано, то переход по страницам будет осуществляться по первой найденной ссылке в селекторе списка новостей. Селектор указывается относительно селектора новости. <br/>Если селектор сам является ссылкой, то необходимо указать: a:parent";
+$MESS ['parser_name_page'] = "Селектор наименования новости:";
+$MESS ['parser_name_descr_page'] = "Если ничего не задано, то название новости будет браться, как текст селектора ссылки. Селектор указывается относительно селектора новости.";
+$MESS ['parser_encoding'] = "Кодировка:";
+$MESS ['parser_delete_tag'] = "Удалять все теги:";
+$MESS ['parser_pagenavigation_tab'] = "Постраничная навигация";
+$MESS ['parser_preview_tab'] = "Превью";
+$MESS ['parser_detail_tab'] = "Детально";
+$MESS ['parser_preview_delete_tag'] = "Удалять теги:";
+$MESS ['parser_preview_delete_tag_descr'] = htmlspecialcharsEx('Пример: "<div>", "<p>", "<br>"');
+$MESS ['parser_page_uniq'] = "Уникализация по:"; 
+$MESS ['parser_page_uniq_url'] = "Урлу";
+$MESS ['parser_page_uniq_name'] = "Названию";
+
+$MESS ['parser_detail_delete_tag'] = "Удалять теги:";
+$MESS ['parser_preview_text_type'] = "Тип поля:";
+$MESS ['parser_detail_text_type'] = "Тип поля:";
+$MESS ['parser_bool_preview_delete_tag'] = "Кроме следующих:";
+$MESS ['parser_bool_detail_delete_tag'] = "Кроме следующих:";
+$MESS ['parser_preview_delete_element'] = "Удалять элементы:";
+$MESS ['parser_detail_delete_element'] = "Удалять элементы:";
+$MESS ['parser_preview_delete_attribute'] = "Удалять атрибуты элементов:";
+$MESS ['parser_detail_delete_attribute'] = "Удалять атрибуты элементов:";
+$MESS ['parser_preview_first_img'] = "Первая картинка как превью:";
+$MESS ['parser_detail_first_img'] = "Первая картинка как детальная:";
+$MESS ['parser_preview_first_img_catalog'] = "Селектор-атрибут превью картинки:";
+$MESS ['parser_detail_first_img_catalog'] = "Селектор-атрибут детальной картинки:";
+$MESS ['parser_preview_save_img'] = "Заменять пути/сохранять картинки на сервер:";
+$MESS ['parser_detail_save_img'] = "Заменять пути/сохранять картинки на сервер:";
+$MESS ['parser_index_element'] = "Индексировать элементы в поиске:";
+$MESS ['parser_code_element'] = "Создавать символьный код из названия:";
+$MESS ['parser_resize_image'] = "Использовать настройки инфоблока для обработки изображений:";
+$MESS ['parser_create_sitemap'] = "По окончании создавать карту сайта:";
+$MESS ['parser_meta_description'] = "Парсить мета-описание страниц:";
+$MESS ['parser_meta_keywords'] = "Парсить ключевые слова страниц:";
+$MESS ['parser_meta_description_text'] = "Описание страницы:";
+$MESS ['parser_meta_keywords_text'] = "Ключевые слова:";
+$MESS ['parser_meta_title'] = "Парсить заголовок страниц:";
+$MESS ['parser_first_title'] = "Записывать ссылку на первоисточник:";
+$MESS ['parser_meta_description'] = "Парсить мета-описание страниц:";
+$MESS ['parser_meta_keywords'] = "Парсить ключевые слова страниц:";
+$MESS ['parser_start_agent'] = "Запускать по агенту:";
+$MESS ['parser_time_agent'] = "Периодичность запуска(в секундах):";
+$MESS ['parser_active_element'] = "Создавать активные элементы:";
+$MESS ['parser_start_last_time'] = "Время последнего запуска:";
+$MESS ['parser_sleep'] = "Время задержки(сек):";
+$MESS ['parser_sleep_descr'] = "Некоторые сайты осуществляют контроль активности, то есть, если количество обращений к сайту за единицу времени будет более установленного значения, то пользователь будет блокирован. Для обхода данной защиты установите временные задержки между обращениями парсера к сайту.:";
+
+$MESS ['parser_selector_descr'] = 'Полный путь к селектору контента обозначается аналогично JQuery. <br/>Примеры: div#simpleid div.content; div#simpleid div.content:eq(0); div#simpleid div.content[style="margin-top:30px"]:eq(1)';
+$MESS ['parser_first_url_descr'] = 'Не обязательное поле. Применяется, если rss лента включает в себя информацию с различных источников. Это поле позволяет указать URL, по которому будет производиться парсинг. То есть парсинг будет осуществляться, если в rss ленте будут найдены совпадения по указанному урлу. Пример: 1с-bitrix.ru(без указания www и http)';
+$MESS ['parser_first_url_descr_page'] = 'Не обязательное поле. Применяется, если страница включает в себя информацию с различных источников. Это поле позволяет указать URL, по которому будет производиться парсинг. То есть парсинг будет осуществляться, если на странице будут найдены совпадения по указанному урлу. Пример: 1с-bitrix.ru(без указания www и http)';
+
+
+$MESS ['parser_encoding_descr'] = "Кодировка сайта, который собираемся парсить. Определяется автоматически. Если не определена, то будет учитываться именно установленное вами значение.";
+
+$MESS ['parser_preview_first_img_descr'] = "Картинка для превью будет браться первой из описания. Если таковой нет, то будет произведен поиск по всем атрибутам rss элементов потока.";
+$MESS ['parser_preview_save_img_descr'] = "Сохранять все картинки из описания на сервер и заменять их пути своими.";
+$MESS ['parser_preview_delete_element_descr'] = 'Удаляет перечисленные элементы. Перечисление идет через запятую. <br/>Примеры: div.simpleclass a, div.simpleclass:eq(5), div.simpleclass[align="left"]:eq(0)';
+$MESS ['parser_preview_delete_attribute_descr'] = 'Удаляет перечисленные атрибуты элементов. Перечисление идет через запятую. <br/>Примеры: div.simpleclass a[href]';
+
+$MESS ['parser_detail_first_img_descr'] = "Картинка для превью будет браться первой из контента.";
+$MESS ['parser_detail_save_img_descr'] = "Сохранять все картинки из описания на сервер и заменять их пути своими.";
+$MESS ['parser_detail_delete_element_descr'] = 'Удаляет перечисленные элементы. Перечисление идет через запятую. <br/>Примеры: div.simpleclass a, div.simpleclass:eq(5), div.simpleclass[align="left"]:eq(1)';
+$MESS ['parser_detail_delete_attribute_descr'] = 'Удаляет перечисленные атрибуты элементов. Перечисление идет через запятую. <br/>Примеры: div.simpleclass a[href]';
+
+$MESS ['parser_prop_id'] = "Выбор свойства из списка";
+$MESS ['parser_date_type'] = "Выбор типа даты";
+$MESS ['parser_date_public'] = "Записывать дату публикации:";
+$MESS ['parser_date_active'] = "Устанавливать дату начала активности:";
+$MESS ['parser_date_active_now'] = "Текущая дата";
+$MESS ['parser_date_active_now_time'] = "Текущая дата и время";
+$MESS ['parser_date_active_public'] = "Дата публикации в источнике";
+$MESS ['parser_demo'] = "Модуль \"Парсер контента\" работает в демо-режиме.";
+
+$MESS ['parser_type'] = "Тип парсера:";
+$MESS ['parser_catalog_message'] = "Функционал парсинга каталога будет реализован в новом 2104 году! Следите за новостями и подписывайтесь на обновления модуля. Компания «Сотбит» работает для Вас.";
+
+$MESS ['parser_pagenavigation_selector'] = "Селектор навигации:";
+$MESS ['parser_pagenavigation_begin'] = "Начинать со страницы:";
+$MESS ['parser_pagenavigation_one'] = "Селектор пункта навигации:";
+$MESS ['parser_pagenavigation_selector_descr'] = "Пример: .pagenavigation";
+$MESS ['parser_pagenavigation_one_descr'] = "Задается относительно предыдущего параметра. Например: a, (то есть просто ссылка)";
+$MESS ['parser_pagenavigation_delete'] = "Удалять элементы навигации:";
+$MESS ['parser_preview_text_selector'] = "Селектор превью описания:";
+$MESS ['parser_detail_text_selector'] = "Селектор детального описания:";
+$MESS ['parser_selector_catalog_descr'] = "Пример: .catalog-section. Далее все селектора в этой закладке идут относительно заданного параметра ";
+$MESS ['parser_selector_detail_catalog_descr'] = "Пример: .catalog-detail. Далее все селектора в этой закладке идут относительно заданного параметра ";
+$MESS ['parser_preview_text_type_catalog'] = "Тип превью описания:";
+$MESS ['parser_preview_delete_tag_catalog'] = "Удалять теги из описания:";
+$MESS ['parser_preview_first_img_descr_catalog'] = "По умолчанию img:eq(0)[src]. Если картинка находится в другом элементе или атрибуте, то записываем, например: a:eq(0)[href]";
+$MESS ['parser_detail_first_img_descr_catalog'] = "По умолчанию img:eq(0)[src]. Если картинка находится в другом элементе или атрибуте, то записываем, например: a:eq(0)[href]. Также может возникнуть ситуация, когда селекторы детальной картинки могут отличаться в зависимости от ряда условия(одна картинка или их несколько). В этом случае перечисление селекторов идет через запятую.";
+$MESS ['parser_detail_text_type_catalog'] = "Тип детального описания:";
+$MESS ['parser_preview_price'] = "Селектор цены:";
+$MESS ['parser_props_tab'] = "Свойства";
+$MESS ['parser_preview_price_descr'] = "Если пустое, то селектор цены надо указывать на детальной странице товара. Если оба поля заполнены, то предпочтение отдается детальной странице.";
+$MESS ['parser_price_type'] = "Тип цены:";
+$MESS ['parser_currency'] = "Валюта:";
+$MESS ['parser_catalog_tab'] = "Торговый каталог";
+$MESS ['parser_catalog_koef'] = "Коэффициент единицы измерения:";
+$MESS ['parser_measure'] = "Единица измерения:";
+
+$MESS ['parser_href_catalog'] = "Селектор ссылки товара:";
+$MESS ['parser_name_catalog'] = "Селектор названия товара:";
+$MESS ['parser_href_descr_catalog'] = "Если ничего не задано, то переход по страницам будет осуществляться по первой найденной ссылке в селекторе списка товаров. Селектор указывается относительно селектора товара.";
+$MESS ['parser_name_descr_catalog'] = "Если ничего не задано, то название товара будет браться, как текст селектора ссылки. Селектор указывается относительно селектора товара.";
+$MESS ['parser_size_selector'] = "Парсинг размеров по селектору";
+
+$MESS ['parser_size_length'] = "Длина:";
+$MESS ['parser_size_width'] = "Ширина:";
+$MESS ['parser_size_height'] = "Высота:";
+$MESS ['parser_size_weight'] = "Вес:";
+$MESS ['parser_selector_size_descr'] = "Парсинг размеров будет осуществляться по конкретным селекторам. Селектора идут относительно главного селектора товара. Также можно удалить лишние символы(двоеточие, точки с запятой и подобные). При удалении символы чередуются через запятую. Если необходимо удалить запятую, то дважды экранируем ее(\\\,).";
+
+$MESS ['parser_size_find'] = "Парсинг размеров по названию";
+$MESS ['parser_selector_find'] = "Селектор перечисления размеров:";
+$MESS ['parser_find_size_descr'] = "Парсинг осуществляется по селектору перечисления размеров. И уже в нем осуществляется поиск размеров по конкретным названиям. Также можно удалить лишние символы(ед. измерения, двоеточия, точки с запятой и подобные). При удалении символы чередуются через запятую. Если необходимо удалить запятую, то дважды экранируем ее(\\\,).";
+
+$MESS ['parser_more_image'] = "Доп. картинки";
+$MESS ['parser_selector_more_image'] = "Селектор-атрибут перечисления доп. картинок:";
+$MESS ['parser_selector_more_image_descr'] = "Пример: .image_list img[src]";
+
+$MESS ['parser_selector_props'] = "Парсинг свойств по селектору&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-name='delete_selector_prop' class='show_prop' style='font-size:12px;' href='#'>Показать все свойства</a>";
+$MESS ['parser_more_image_prop'] = "Свойство доп. картинок:";
+$MESS ['parser_find_props'] = "Парсинг свойств по названию&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a data-name='delete_find_prop' class='show_prop' style='font-size:12px;' href='#'>Показать все свойства</a>";
+$MESS ['parser_selector_find_props'] = "Селектор перечисления свойств:";
+$MESS ['parser_mode'] = "Режим парсера:";
+$MESS ['parser_mode_descr'] = "При debug режиме осуществляется парсинг первых 3 страниц и 3 товаров каждой страницы. Debug режим необходим для отладки парсера. В рабочий режим парсер необходимо переводить, если вы полностью отладили и настроили парсинг!!!<br/><b>Работа парсера в демо-режиме ограничена и фактически аналогична работе парсера в debug режиме.</b>"; 
+
+$MESS ['parser_header_uniq'] = "Проверка уникальности";
+$MESS ['parser_uniq_update'] = "Обновлять товары";
+$MESS ['parser_header_uniq_field'] = "Обновлять поля";
+$MESS ['parser_header_uniq_field_preview_descr'] = "Превью описание:";
+$MESS ['parser_header_uniq_field_detail_descr'] = "Детальное описание:";
+$MESS ['parser_header_uniq_field_preview_img'] = "Превью картинка:";
+$MESS ['parser_header_uniq_field_detail_img'] = "Детальное картинка:";
+$MESS ['parser_header_uniq_field_price'] = "Цена:";
+$MESS ['parser_header_uniq_field_descr'] = "Отмеченные поля будут обновляться при обновлении товаров.";
+$MESS ['parser_uniq_name'] = "По названию:";
+$MESS ['parser_uniq_prop'] = "По свойству:";
+//$MESS ['parser_uniq_descr'] = "По умолчанию уникальность элементов проверяется по md5 от названия элемента и урла первоисточника. Эти данные заносятся в XML_ID и далее уже по XML_ID проверяется уникальность. Вы можете изменить поля, по которым будет проверяться уникальность. Если выбрано несколько полей, то проверка уникальности будет по логике И. Если вы не хотите использовать поле XML_ID для проверки уникальности(как по умолчанию), то вам надо переопределить, по каким полям будет проверяться уникальность.";
+$MESS ['parser_uniq_descr'] = "По умолчанию при выгрузке товаров заполняется внешний код XML_ID элемента, как md5(название+url страницы). Далее при обновлении уникализация осуществляется именно по внешнему коду. <br/><b>Внимание! Если вы не хотите делать запись во внешний код и уникализировать по нему товар, то укажите, по какому полю производить уникализацию элементов. В этом случае внешний код XML_ID затираться не будет.</b>";
+
+
+$MESS ['parser_preview_from_detail'] = "Создавать превью картинку из детальной:";
+$MESS ['parser_preview_from_detail_text'] = "Создавать превью описание из детального:";
+$MESS ['parser_catalog_delete_symb'] = "Удалять символы:";
+$MESS ['parser_delete_symb_descr'] = "Удаление символов позволяет удалять лишние символы из общего селектора свойства(названия ед. измерения, двоеточия, точки с запятой и подобное). Перечисление идет через запятую. Если необходжимо удалить саму запятую, то производим двойное экранирование(\\\,).";
+
+$MESS ['parser_header_uniq_field_more_img'] = "Доп. картинки:";
+$MESS ['parser_cat_vat_id'] = "Ставка НДС:";
+$MESS ['parser_cat_vat_included'] = "Включать НДС в цену:";
+$MESS ['parser_proxy'] = "Прокси-сервер:";
+$MESS ['parser_proxy_descr'] = "Указывается прокси-сервер. Пример: 109.194.20.27:3128";
+$MESS ['parser_header_uniq_field_param'] = "Параметры каталога:";
+$MESS ['parser_header_uniq_field_props'] = "Свойства товара:";
+$MESS ['parser_pagenavigation_end'] = "по страницу:";
+$MESS ['parser_pagenavigation_begin_descr'] = "Если ничего не задано, то будет парсится весь раздел каталога.";
+$MESS ['parser_404_error'] = "Парсить при возникновении 404 ошибки:";
+$MESS ['parser_404_descr'] = "Некоторые сайты при переходе по страницам навигации отдают 404 ошибку из-за SEO заморочек. Именно для таких случаев и предназначен выше приведенный параметр.";
+$MESS ['parser_logs_tab'] = "Логи";
+$MESS ['parser_header_logs'] = "Включить логирование:";
+$MESS ['parser_header_logs_download'] = "Скачать лог:"; 
+$MESS ['parser_header_log_descr'] = "Производится логирование последней выгрузки. Лог записывается файл."; 
+$MESS ['btn_stop_catalog'] = "Остановить";
+$MESS ['parser_load_page'] = "Обработано страниц: ";    
+$MESS ['parser_load_product'] = " Импортировано товаров: ";
+$MESS ['parser_load_product_error'] = " Из них с ошибками: ";
+$MESS ['parser_all_error'] = " Всего ошибок: ";
+$MESS['parser_instructions'] = "Инструкция";
+$MESS['parser_instructions_title'] = "Инструкция пользователя";
+$MESS['parser_loading_end'] = "Загрузка завершена"; 
+
+$MESS['parser_update_N'] = "Не обновлять";
+$MESS['parser_update_Y'] = "Обновлять";
+$MESS['parser_update_empty'] = "Обновлять пустое значение";
+
+$MESS['parser_work_price'] = "Работа с ценами";
+
+$MESS['parser_price_terms_no'] = "Без условия";
+$MESS['parser_price_terms_up'] = "Если цена выше";
+$MESS['parser_price_terms_down'] = "Если цена ниже";
+$MESS['parser_price_updown_no'] = "Не изменять";
+$MESS['parser_price_updown_up'] = "Увеличить";
+$MESS['parser_price_updown_down'] = "Уменьшить";
+$MESS['parser_price_percent'] = "Проценты";
+$MESS['parser_price_abs_value'] = "Абсолютная величина";
+$MESS['parser_price_updown'] = 'Изменять цену:';
+$MESS['parser_price_terms'] = 'Условие изменения цены:';
+$MESS['parser_price_type_value'] = 'Тип изменения:';
+$MESS['parser_price_value'] = 'Величина изменения:';
+$MESS['parser_convert_currency'] = 'Конвертировать в валюту:'; 
+$MESS['parser_convert_no'] = 'Нет';
+$MESS['parser_step'] = 'Количество товаров, выгружаемых за один шаг парсера:';
+$MESS['parser_start_agent_descr'] = 'Рекомендуется запускать агенты из под крона.';
+$MESS['parser_auth'] = 'Авторизация';
+$MESS['parser_auth_active'] = 'Производить авторизацию на стороннем сайте:';
+$MESS['parser_auth_url'] = 'URL авторизационной страницы:';
+$MESS['parser_auth_url_descr'] = 'URL страницы, на которой происходит авторизация. Если пустое, то авторизация происходит на странице раздела.';
+$MESS['parser_auth_selector'] = 'Селектор формы авторизации:';
+$MESS['parser_auth_login'] = 'Логин:';
+$MESS['parser_auth_login_name'] = 'Имя поля логина:';
+$MESS['parser_auth_password'] = 'Пароль:';
+$MESS['parser_auth_password_name'] = 'Имя поля пароля:';
+$MESS['parser_auth_password_descr'] = 'Если форма авторизации стандартная, то по-умолчанию достаточно указать лишь логин и пароль. Если же для авторизации не используются такие типы полей, как text, password, то необходимо указать имена полей.';
+$MESS['parser_auth_check'] = 'Проверить авторизацию';
+$MESS['parser_work_price_num'] = 'Условие';
+$MESS['parser_price_num_add'] = 'Добавить условие';
+$MESS['parser_price_num_del'] = 'Удалить условие';
+$MESS['parser_price_terms_delta'] = 'Если цена в промежутке';
+$MESS['parser_price_from'] = 'От';
+$MESS['parser_price_to'] = 'До';
+$MESS['parser_auth_no'] = 'Неудачная авторизация. Ключи доступа не подходят.';
+$MESS['parser_auth_ok'] = 'Авторизация прошла успешно. Ключи доступа актуальные.';
+$MESS['parser_auth_error_selector'] = 'Селектор формы авторизации не определен.';
+$MESS['parser_selector_find_descr'] = 'Если общий селектор отсутствует и перечисление идет через тег &lt;br&gt;, то пишем примерно следующее: .props br';
+$MESS['parser_detail_name'] = 'Селектор названия товара';
+$MESS['parser_detail_name_descr'] = 'Если указан, то селектор названия товара в превьюшке будет игнорироваться.';
+
+$MESS['parser_cat_price_offer'] = 'Цены только в инфоблоке торговых предложений:';
+$MESS['parser_url_dop'] = 'Дополнительные урлы разделов:';
+$MESS['parser_url_dop_descr'] = 'Поле предназначено для парса нескольких разделов одновременно. Каждый урл пишется с новой строки.';
+$MESS['parser_prop_default'] = "Значение по умолчанию";
+
+$MESS ['parser_video_tab'] = "Видео-инструкции";
+$MESS ['parser_video_catalog_descr'] = "Видео-урок: Парcер контента в режиме работы с каталогами. Сотбит. 1С-Битрикс.";
+$MESS ['parser_video_page_descr'] = "Видео-урок: Парcер контента в режиме работы с новостными страницами. Сотбит. 1С-Битрикс.";
+$MESS ['parser_video_rss_descr'] = "Видео-урок: Парcер контента в режиме работы с rss лентами. Сотбит. 1С-Битрикс. ";
+
+$MESS ['parser_price_format'] = "Формат цены(разделители):";
+$MESS ['parser_price_format1'] = " тысячи ";
+$MESS ['parser_price_format2'] = " копейки ";
+$MESS ['parser_price_format_descr'] = "Заполняется в том случае, если цена состоит из тысяч и копеек со своими разделителями. В большинстве случаев можно оставлять пустым.";
+?>
