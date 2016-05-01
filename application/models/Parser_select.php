@@ -37,7 +37,7 @@ class Parser_select extends CI_Model
         if (!empty($html)) {
             $document = phpQuery::newDocument($html);
             unset($html);
-            foreach ($document->find($arInputs["item_class"]) as $key_index => $element_index) {
+            foreach ($document->find($arInputs["class_item"]) as $key_index => $element_index) {
                 ++$count;
                 $pq = pq($element_index);
                 $arLinks = (($pq->attr('href') != "#") || (in_array($pq->attr('href'), $this->arExclusion))) ? $pq->attr('href') : "";
@@ -70,16 +70,27 @@ class Parser_select extends CI_Model
         $html = file_get_contents($arInputs["item_url"]);
         $document = phpQuery::newDocument($html);
         unset($html);
-        foreach ($document->find($arInputs["name_item"]) as $key_index => $element_index) {
+        $name_item = $document->find($arInputs["name_item"]);
+        $pq = pq($name_item);
+        $arItem = array("id" => "", "name" => $pq->text());
+        $this->db->insert('item_rev', $arItem);
+        $this->db->where('name', $pq->text());
+        $this->db->select('id');
+        $query = $this->db->get('item_rev');
+        $arInputs["id_items"] = $query->result_array();
+        $arInputs["id_items"] = $arInputs["id_items"][0]["id"];
+        /*foreach ($document->find($arInputs["name_item"]) as $key_index => $element_index) {
             $pq = pq($element_index);
-            $arItem = array("id" => "", "url" => $pq->text(), "id_parser" => 1);
+            $arItem = array("id" => "", "name" => $pq->text());
             $this->db->insert('link_items', $arItem);
             sleep(1);
-        }
+        }*/
         $code_item = $document->find($arInputs["code_item"]);
-        $code_item = explode($arInputs["exceptions"], $code_item);
-        $arInputs["code"] = $code_item[1];
-//        self::reviews($arInputs, 0);
+        if(!empty($code_item)){
+            $code_item = explode($arInputs["exceptions"], $code_item);
+            $arInputs["code"] = $code_item[1];
+        }
+        self::reviews($arInputs, 0);
     }
 
     public function reviews($arInputs, $count)
@@ -106,12 +117,12 @@ class Parser_select extends CI_Model
             if ($len_rev < 40) {
                 continue;
             }
-            $strAddBd .= "(null, '$review', 1),";
+            $strAddBd .= "(null, ".$arInputs["id_items"].", '$review'),";
             if ($count == 30) {
                 $strAddBd = substr($strAddBd,0,-1);
                 $strAddBd .= ";";
-                $this->db->query("INSERT INTO link_items (id, url, id_parser) VALUES " . $strAddBd);
-                sleep(2);
+                $this->db->query("INSERT INTO rev_table (`id`, `id_items`, `value`) VALUES " . $strAddBd);
+                sleep(1);
                 $count = 0;
                 $strAddBd = "";
             }
@@ -129,7 +140,7 @@ class Parser_select extends CI_Model
         if(!empty($strAddBd)) {
             $strAddBd = substr($strAddBd, 0, -1);
             $strAddBd .= ";";
-            $this->db->query("INSERT INTO link_items (id, url, id_parser) VALUES " . $strAddBd);
+            $this->db->query("INSERT INTO rev_table (`id`, `id_items`, `value`) VALUES " . $strAddBd);
         }
     }
 }

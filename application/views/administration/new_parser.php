@@ -3,6 +3,7 @@
     <input type="submit" class="add_parser" value="ок">
 </form>
 <?
+session_write_close();
 if (!empty($list_parser)) {
     foreach ($list_parser as $key => $item_parser): ?>
         <a href="<?= request_url() . "/" . $item_parser->id ?>"><?= $item_parser->value?></a>
@@ -45,8 +46,8 @@ if (!empty($list_source)) :?>
                             dataType: 'json',
                             success: function (msg) {
                                 var id_item;
-                                var obj_prop = {};
-
+                                var obj_prop = {parser:{}};
+                                obj_prop.parser["id_parser"]= id_pars['id_parser'];
                                 if (Object.keys(msg).length != 0) {
                                     console.log(msg);
                                     msg.forEach(function (item, i, arr) {
@@ -55,22 +56,24 @@ if (!empty($list_source)) :?>
                                         }
                                         if (item.id_parser == id_item && item.value != "") {
                                             var property = item.name_property;
-                                            obj_prop[item.name_property] = item.value;
+                                            obj_prop.parser[item.name_property] = item.value;
                                         }
 
                                         id_item = item.id_parser;
                                     });
-//                                console.log(obj_prop);
+                                console.log(obj_prop);
                                     if (Object.keys(obj_prop).length != 0) {
                                         $.ajax({
+                                            async:false,
                                             type: "POST",
                                             url: "<?=base_url()?>ajax/parser",
                                             data: obj_prop,
                                             dataType: 'json',
                                             success: function (msg) {
+                                                console.log(msg);
                                             }
                                         });
-                                        console.log(obj_prop);
+//                                        console.log(obj_prop);
                                     }
                                 }
                             }

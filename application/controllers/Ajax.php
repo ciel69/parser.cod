@@ -3,7 +3,7 @@
 class Ajax extends CI_Controller
 {
     function __construct()
-    {
+    {   session_write_close();
         ini_set("max_execution_time", "0");
         ini_set("memory_limit", "-1");
         parent::__construct();
@@ -37,24 +37,32 @@ class Ajax extends CI_Controller
             echo "не-аякс не разрешен. пошел вон грязный хакир.";
             return;
         }
-
-        $url = $this->input->post('url');
-        $arInputs["item_class"] = $this->input->post('class_item');
+        session_write_close();
+//        $url = $this->input->post('url');
+        $arParser = $this->input->post('parser');
+        foreach ($arParser as $key=>$item_parse){
+            $arInputs[$key] = $item_parse;
+        }
+        unset($arParser);
+        /*$arInputs["item_class"] = $this->input->post('class_item');
         $arInputs["next_link"] = $this->input->post('next_link');
         $arInputs["name_item"] = $this->input->post('name_item');
         $arInputs["code_item"] = $this->input->post('code_item');
         $arInputs["exceptions"] = $this->input->post('exceptions');
         $arInputs["link_reviews"] = $this->input->post('link_reviews');
         $arInputs["class_review"] = $this->input->post('class_review');
-        $arInputs["class_page_rev"] = $this->input->post('class_page_rev');
-        
-        $rowSite_url = explode("\n", $url);
-        $this->load->model('parser_select');
-        foreach ($rowSite_url as $cell => $site_url) {
-            $arInputs["site_url"] = $site_url;
-            $result = $this->parser_select->categories($arInputs, 0);
+        $arInputs["class_page_rev"] = $this->input->post('class_page_rev');*/
+        if(!empty($arInputs)) {
+            $rowSite_url = explode("\n", $arInputs["url"]);
+            $this->load->library('daemon');
+//            $this->daemon->execute_background('parser_select', 'categories', $arInputs);
+            $this->load->model('parser_select');
+            foreach ($rowSite_url as $cell => $site_url) {
+                $arInputs["site_url"] = $site_url;
+                $result = $this->parser_select->categories($arInputs, 0);
+            }
+            echo "Я спарсил";
         }
-        echo "Я спарсил";
     }
     public function search(){
         $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
