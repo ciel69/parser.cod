@@ -13,7 +13,7 @@ class Select_test extends CI_Model {
     }
 
     public function get_last_ten_entries()
-    {
+    {   $this->load->database('default', TRUE);
         $query = $this->db->get('users', 10);
         return $query->result();
     }
@@ -35,5 +35,4 @@ class Select_test extends CI_Model {
 
         $this->db->update('table_test', $this, array('id' => $_POST['id']));
     }
-
 }
