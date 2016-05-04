@@ -128,4 +128,23 @@ class Ajax extends CI_Controller
         $res = $this->parser_list->get_prop_parser($id_parser);
         echo json_encode($res);
     }
+    public function color(){
+        define('SITEPATH', '../');
+        if (isset($_POST['colorator'])) {
+            $this->load->library('generator_color');
+            if (!empty($_FILES['image']) and $_FILES['image']['error'] == 0) {
+                $f_name = trim($_FILES['image']['name']);
+                $f_tmp = $_FILES['image']['tmp_name'];
+                move_uploaded_file($f_tmp, '/home/ciel/parser.cod/color/img/' . $f_name);
+                $fi = pathinfo('/home/ciel/parser.cod/color/img/' . $f_name);
+                $iobj = strtolower($fi["extension"]);
+                @rename('/home/ciel/parser.cod/color/img/' . $f_name, '/home/ciel/parser.cod/color/img/' . md5($f_name) . '.' . $iobj);
+                $f_name = md5($f_name) . '.' . $iobj;
+                if (in_array($iobj, array('jpg')) !== false) {
+                    $colors = $this->generator_color->getImageColor('/home/ciel/parser.cod/color/img/' . $f_name, isset($_POST['count']) ? $_POST['count'] : 10, isset($_POST['step']) ? $_POST['step'] : 5);
+                    print_r($colors);
+                } else echo 'Данный формат не поддерживается';
+            } else echo 'Ошибка при загрузке файла';
+        }
+    }
 }

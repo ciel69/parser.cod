@@ -52,14 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['login/(.+)'] = 'auth/$1';
 $route['ajax'] = 'ajax/index';
 
-//$route['pages/view/(:any)'] = '$1';
-//$route['default_controller'] = 'pages/view';
-<<<<<<< HEAD
-//$route['(:any)'] = 'pages/view/$1';
-=======
 $route['(:any)'] = 'pages/view/$1';
 $route['search/(:any)'] = 'pages/view/$1';
->>>>>>> master
+
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
