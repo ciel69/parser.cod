@@ -5,9 +5,7 @@ class Administration extends CI_Controller
 
     public function parser($settings = 'index', $pars = "")
     {
-        $this->load->helper('translit');
-        $this->load->helper('request_url');
-        $this->load->helper('formation_helper');
+        $this->load->helper(array('form', 'url', 'translit', 'request_url', 'formation_helper'));
         $this->load->library('ion_auth');
         if (!$this->ion_auth->logged_in()) {
             redirect('/auth/login/', 'refresh');

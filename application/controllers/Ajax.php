@@ -7,11 +7,12 @@ class Ajax extends CI_Controller
         ini_set("max_execution_time", "0");
         ini_set("memory_limit", "-1");
         parent::__construct();
+        $this->load->helper('formation_helper');
         $this->load->library('ion_auth');
         $this->load->library('session');
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation'));
-        $this->load->helper(array('url', 'language'));
+        $this->load->helper(array('url', 'language', 'form'));
 
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
@@ -85,14 +86,21 @@ class Ajax extends CI_Controller
     }
     public function save_parser(){
         $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
-        if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
+        /*if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
             echo "не-аякс не разрешен. пошел вон грязный хакир.";
             return;
-        }
+        }*/
         $arParser = $this->input->post('parser');
+        if(!empty($arProp["img_filter"])){
+            $uploaddir = '/color/img/upload/';
+            $uploadfile = $uploaddir . basename($_FILES['img_filter']['name']);
+            if (move_uploaded_file($_FILES['img_filter']['tmp_name'], $uploadfile)) {
+                $arProp["img_filter"] = $uploadfile;
+            }
+        }
         $this->load->model('parser_list');
         $res = $this->parser_list->add_parser($arParser);
-        echo json_encode(array('success'=>$res));
+        echo json_encode(array('success'=>$res,'file'=>$_FILES));
     }
     public function source(){
         $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
@@ -145,6 +153,26 @@ class Ajax extends CI_Controller
                     print_r($colors);
                 } else echo 'Данный формат не поддерживается';
             } else echo 'Ошибка при загрузке файла';
+        }
+    }
+    public function test_color(){
+        $this->load->library('generator_color');
+        $colors = $this->generator_color->getImageColor('/home/ciel/parser.cod/color/img/e0c69753c03df2be0b75a1ab5ce148f8.jpg', 3, 5);
+
+        $p_colors = gpn($colors);
+        vdgu($p_colors);
+        print_r($colors);
+    }
+    public function saveImage(){
+//        echo $_FILES['images']['tmp_name'];
+        $uploaddir = './color/img/';
+        $uploadfile = $uploaddir . basename($_FILES['images']['name']);
+
+        if (move_uploaded_file($_FILES['images']['tmp_name'], $uploadfile)) {
+
+            echo substr($uploadfile, 1);
+        } else {
+            echo "Возможная атака с помощью файловой загрузки!\n";
         }
     }
 }

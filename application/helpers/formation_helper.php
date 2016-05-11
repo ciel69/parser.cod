@@ -3,8 +3,20 @@
 
 function formation_form($property)
 {   $value = !empty($property["value"]) ? $property["value"] : "";
-    if ($property["type_property"] == "text") {
-        echo "<input type='text' data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' value='" . $value . "' placeholder='" . $property["placeholder_property"] . "'>";
+    if ($property["type_property"] == "text" ) {
+        echo "<input type='".$property["type_property"]."' data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' value='" . $value . "' placeholder='" . $property["placeholder_property"] . "'>";
+    } elseif($property["type_property"] == "file"){
+    ?>
+        <div>
+            <!-- "js-fileapi-wrapper" -- обязательный class -->
+            <div class="js-fileapi-wrapper upload-btn" id="choose">
+                <div class="upload-btn__txt">Choose files</div>
+                <input name="img_filter" type="file" multiple />
+            </div>
+            <div id="images"><img src="<?=$value?>" width="200" alt=""></div>
+        </div>
+
+        <?
     } else {
         echo "<textarea data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' placeholder='" . $property["placeholder_property"] . "'>" . $value . "</textarea>";
     }
@@ -71,3 +83,14 @@ function format_array_parser($property_def, $data_items){
     return $newDefItem;
 }
 
+
+function gpn($colors){
+    $sum_color = array_sum($colors);
+    vdgu($sum_color);
+    $p_colors = array();
+    foreach ($colors as $key=>$color){
+        $p_color = ($color/$sum_color)*100;
+        $p_colors[$key] = $p_color;
+    }
+    return $p_colors;
+}

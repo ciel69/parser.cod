@@ -85,17 +85,21 @@ class Parser_list extends CI_Model
             $update_prop = $query->result_array();
             $count_prop = $query->num_rows();
             if($count_prop != 0) {
+                $str_val = "";
                 foreach ($update_prop as $row) {
                     $data["value"] = $arProp[$row["name_property"]];
                     $this->db->where('id', $row["id"]);
                     $update = $this->db->update('prop_parser', $data);
-                    unset($data);
+                    unset($data, $arProp[$row["name_property"]]);
                 }
-            } else {
-                foreach ($arProp as $key => $item) {
-                    if ($key == "name_source" || $key == "name_parser") {
-                        continue;
-                    }
+
+
+            }
+            foreach ($arProp as $key => $item) {
+                if ($key == "name_source" || $key == "name_parser") {
+                    continue;
+                }
+                if (!empty($item)){
                     $data = array(
                         "name_property" => $key,
                         "value" => $item,
@@ -104,17 +108,17 @@ class Parser_list extends CI_Model
                     $this->db->insert('prop_parser', $data);
                 }
             }
-            unset($data);
-            if (empty($update)) {
-                $data = array(
-                    "value" => $arProp["name_source"],
-                    "tr_name" => rus2translit($arProp["name_source"])
-                );
-                $this->db->where('id', $id_parser);
-                $this->db->update('source_pars', $data);
-            }
         }
-        return $id_parser;
+        unset($data);
+        if (empty($update)) {
+            $data = array(
+                "value" => $arProp["name_source"],
+                "tr_name" => rus2translit($arProp["name_source"])
+            );
+            $this->db->where('id', $id_parser);
+            $this->db->update('source_pars', $data);
+        }
+    return $id_parser;
     }
 
     public function select_pars($id)
