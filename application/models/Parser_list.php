@@ -38,7 +38,7 @@ class Parser_list extends CI_Model
 
     public function add_parser($arProp)
     {
-        //num_rows
+        $id_parser = 0;
         $query = $this->db->query("SELECT * FROM reviews.source_pars WHERE `value` = '" . $arProp["name_source"] . "'");
         if ($query->num_rows() == 0) {
             $data = array(
@@ -118,7 +118,7 @@ class Parser_list extends CI_Model
             $this->db->where('id', $id_parser);
             $this->db->update('source_pars', $data);
         }
-    return $id_parser;
+        return $id_parser;
     }
 
     public function select_pars($id)

@@ -25,7 +25,7 @@ if (!empty($newDefItem)) {
 <script>
     $(document).ready(function () {
         var files;
-        
+
         FileAPI.event.on(choose, 'change', function (evt){
             files = FileAPI.getFiles(evt); // Retrieve file list
             FileAPI.filterFiles(files, function (file, info/**Object*/){
@@ -95,6 +95,7 @@ if (!empty($newDefItem)) {
                     }
                 })
             } else {
+                Data.parser['img_filter'] = $('img.img_filter').attr('src');
                 $.ajax({
                     type: "POST",
                     url: "<?=base_url()?>ajax/save_parser",

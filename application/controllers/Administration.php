@@ -29,7 +29,7 @@ class Administration extends CI_Controller
             } else {
                 $data["item_parser"] = $this->parser_list->select_pars($pars);
                 $property_def = $this->parser_list->get_default_property();
-
+//                vdgu($data["item_parser"]);
                 $data["newDefItem"] = format_array_parser($property_def, $data["item_parser"]);;
                 $this->load->view('administration/parser', $data);
             }

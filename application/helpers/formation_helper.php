@@ -3,6 +3,12 @@
 
 function formation_form($property)
 {   $value = !empty($property["value"]) ? $property["value"] : "";
+    if(!empty($property["name"])) {
+        if ($property["name"] == "id_parser") {
+            echo "<input type='hidden' class=" . $property["name"] . " value=" . $value . ">";
+            return;
+        }
+    }
     if ($property["type_property"] == "text" ) {
         echo "<input type='".$property["type_property"]."' data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' value='" . $value . "' placeholder='" . $property["placeholder_property"] . "'>";
     } elseif($property["type_property"] == "file"){
@@ -11,9 +17,9 @@ function formation_form($property)
             <!-- "js-fileapi-wrapper" -- обязательный class -->
             <div class="js-fileapi-wrapper upload-btn" id="choose">
                 <div class="upload-btn__txt">Choose files</div>
-                <input name="img_filter" type="file" multiple />
+                <input name="img_filter" type="file" class="<?=$property["class_property"]?>" multiple value="<?=$value?>" />
             </div>
-            <div id="images"><img src="<?=$value?>" width="200" alt=""></div>
+            <div id="images"><img src="<?=$value?>" class="<?=$property["class_property"]?>" width="200" alt=""></div>
         </div>
 
         <?
@@ -50,6 +56,8 @@ function format_array_parser($property_def, $data_items){
         if(!empty($arItemObjects[0])) {
             if ($key == "name_parser") {
                 $arParams[$key] = $arItemObjects[0];
+                $arParams["id_parser"]["value"] = $arItemObjects[0]["id"];
+                $arParams["id_parser"]["name"] = "id_parser";
                 continue;
             }
             if ($key == "name_source") {
@@ -59,6 +67,7 @@ function format_array_parser($property_def, $data_items){
         } else {
             if ($key == "name_parser") {
                 $arParams[$key] = $arItemObjects;
+                $arParams["id_parser"] = $arItemObjects["id"];
                 continue;
             }
             if ($key == "name_source") {

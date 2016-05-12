@@ -157,7 +157,7 @@ class Ajax extends CI_Controller
     }
     public function test_color(){
         $this->load->library('generator_color');
-        $colors = $this->generator_color->getImageColor('/home/ciel/parser.cod/color/img/e0c69753c03df2be0b75a1ab5ce148f8.jpg', 3, 5);
+        $colors = $this->generator_color->getImageColor('./color/img/10007817b.jpg', 3, 5);
 
         $p_colors = gpn($colors);
         vdgu($p_colors);

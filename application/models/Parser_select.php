@@ -14,10 +14,9 @@ class Parser_select extends CI_Model
         ini_set("max_execution_time", "0");
         ini_set("memory_limit", "-1");
         get_instance();
-        $this->load->helper('url');
-        $this->load->library('session');
+        $this->load->library(array('generator_color'));
         $this->config->item('base_url');
-        $this->load->helper('file');
+        $this->load->helper(array('file', 'url', 'translit'));
         $this->load->database();
         //gc_enable();
         require_once "./public/phpQuery.php";
@@ -72,6 +71,19 @@ class Parser_select extends CI_Model
         unset($html);
         $name_item = $document->find($arInputs["name_item"]);
         $pq = pq($name_item);
+        if(stristr($arInputs["link_img"],'[')){
+            $arLinkImg = explode($arInputs["link_img"], '[');
+            $arLinkImg[1] = str_replace(']','',$arLinkImg[1]);
+        } else {
+            $arLinkImg[0] = $arInputs["link_img"];
+        }
+
+        foreach ($document->find($arLinkImg[0]) as $cell => $link) {
+            $tr_name = rus2translit($arInputs["name_source"]);
+            mkdir('./color/img/'.$tr_name.'/'.$arInputs["id_parser"]);
+            $colors_def = $this->generator_color->getImageColor('.'.$arInputs["img_filter"], 3, 5);
+            //todo получить разницу процентного содержания цветов и на основе этого заливать картинку или нет
+        }
         $arItem = array("id" => "", "name" => $pq->text());
         $this->db->insert('item_rev', $arItem);
         $this->db->where('name', $pq->text());
