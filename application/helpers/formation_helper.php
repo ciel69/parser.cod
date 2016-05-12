@@ -67,7 +67,8 @@ function format_array_parser($property_def, $data_items){
         } else {
             if ($key == "name_parser") {
                 $arParams[$key] = $arItemObjects;
-                $arParams["id_parser"] = $arItemObjects["id"];
+                $arParams["id_parser"]["value"] = $arItemObjects["id"];
+                $arParams["id_parser"]["name"] = "id_parser";
                 continue;
             }
             if ($key == "name_source") {
