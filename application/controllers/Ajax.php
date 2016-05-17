@@ -44,6 +44,8 @@ class Ajax extends CI_Controller
         foreach ($arParser as $key=>$item_parse){
             $arInputs[$key] = $item_parse;
         }
+
+        //$arInputs["id_parser"]
         unset($arParser);
         /*$arInputs["item_class"] = $this->input->post('class_item');
         $arInputs["next_link"] = $this->input->post('next_link');
@@ -54,8 +56,10 @@ class Ajax extends CI_Controller
         $arInputs["class_review"] = $this->input->post('class_review');
         $arInputs["class_page_rev"] = $this->input->post('class_page_rev');*/
         if(!empty($arInputs)) {
+            $this->load->model('core_admin');
+            $arInputs["name_source"]=$this->core_admin->get_property_source("tr_name", $arInputs["id_parser"]);
             $rowSite_url = explode("\n", $arInputs["url"]);
-            $this->load->library('daemon');
+//            $this->load->library('daemon');
 //            $this->daemon->execute_background('parser_select', 'categories', $arInputs);
             $this->load->model('parser_select');
             foreach ($rowSite_url as $cell => $site_url) {
@@ -157,7 +161,7 @@ class Ajax extends CI_Controller
     }
     public function test_color(){
         $this->load->library('generator_color');
-        $colors = $this->generator_color->getImageColor('./color/img/10007817b.jpg', 3, 5);
+        $colors = $this->generator_color->getImageColor('./color/img/Tehnoshoe/36/001.jpg', 3, 5);
 
         $p_colors = gpn($colors);
         vdgu($p_colors);
