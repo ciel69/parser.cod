@@ -149,6 +149,7 @@ class Parser_select extends CI_Model
         $query = $this->db->get('item_rev');
         $arInputs["id_items"] = $query->result_array();
         $arInputs["id_items"] = $arInputs["id_items"][0]["id"];
+        $name_product = pq($arInputs["name_item"])->text();
         /*foreach ($document->find($arInputs["name_item"]) as $key_index => $element_index) {
             $pq = pq($element_index);
             $arItem = array("id" => "", "name" => $pq->text());
