@@ -73,99 +73,110 @@ class Parser_select extends CI_Model
         unset($html);
         $name_item = $document->find($arInputs["name_item"]);
         $pq = pq($name_item);
-        if(!empty($arInputs["link_img"]) && stristr($arInputs["link_img"],'[')){
-            $arLinkImg = explode("[", $arInputs["link_img"]);
-            $arLinkImg[1] = str_replace(array("]"), "", $arLinkImg[1]);
-//            preg_match("/[([^]]+)]*/i", $arInputs["link_img"], $arLinkImg);
-        } elseif(!empty($arInputs["link_img"])) {
-            $arLinkImg[0] = $arInputs["link_img"];
+        $this->db->where('name', $pq->text());
+        $query = $this->db->get('item_rev');
+        $dbItem = $query->result_array();
+        if(!empty($dbItem[0]["id"])){
+            $arInputs["id_items"] = $dbItem[0]["id"];  
         }
-        if(!empty($arInputs["link_img"]) && !empty($arInputs["img_filter"])) {
-            $colors_def = $this->generator_color->getImageColor('.' . $arInputs["img_filter"], 3, 5);
-        }
-        if(!empty($arLinkImg[0])) {
-            foreach ($document->find($arLinkImg[0]) as $cell => $link) {
-                $load_img = true;
+        
+        if(!in_array($pq->text(), $dbItem[0])) {
+            unset($dbItem, $query);
+            if (!empty($arInputs["link_img"]) && stristr($arInputs["link_img"], '[')) {
+                $arLinkImg = explode("[", $arInputs["link_img"]);
+                $arLinkImg[1] = str_replace(array("]"), "", $arLinkImg[1]);
+            } elseif (!empty($arInputs["link_img"])) {
+                $arLinkImg[0] = $arInputs["link_img"];
+            }
+            if (!empty($arInputs["link_img"]) && !empty($arInputs["img_filter"])) {
+                $colors_def = $this->generator_color->getImageColor('.' . $arInputs["img_filter"], 3, 5);
+            }
+            if (!empty($arLinkImg[0])) {
+                foreach ($document->find($arLinkImg[0]) as $cell => $link) {
+                    $load_img = true;
 
-                $tr_name = rus2translit($arInputs["name_source"]);
-//            mkdir('./color/img/'.$tr_name.'/');
-                /**
-                 * $url = 'http://img.yandex.net/i/www/logo.png';
-                 * $path = './images/logo.png';
-                 * file_put_contents($path, file_get_contents($url));
-                 */
-                $pq_img = pq($link);
-                $link_image = $pq_img->attr($arLinkImg[1]);
+                    $tr_name = rus2translit($arInputs["name_source"]);
+                    $pq_img = pq($link);
+                    $link_image = $pq_img->attr($arLinkImg[1]);
 
-                if (stristr($link_image, '//')) {
-                    $arInputs["link_img"] = $arInputs['scheme'] . ":" . $link_image;
-                } else {
-                    $arInputs["link_img"] = $arInputs['domains'] . $link_image;
-                }
-                $name_file = substr(strrchr($link_image, "/"), 1);
-                $format_file = substr(strrchr($name_file, "."), 1);
-                $arFilterImg = array('jpg', 'jpeg', 'png', 'gif');
-                if (in_array($format_file, $arFilterImg)) {
-                    $colors_load = $this->generator_color->getImageColor($arInputs["link_img"], 3, 5);
-                    if(!empty($colors_def)) {
-                        foreach ($colors_def as $key_def => $def_color) {
-                            foreach ($colors_load as $key => $color) {
-                                if ($key != "FFFFFF") {
-                                    if ($key == $key_def) {
-                                        $load_img = false;
-                                        break;
-                                    }
-                                    $exe_color = strncmp($key_def, $key, 2);
-                                    if ($exe_color == 0) {
-                                        $load_img = false;
-                                        break;
+                    if (stristr($link_image, '//')) {
+                        $arInputs["link_img"] = $arInputs['scheme'] . ":" . $link_image;
+                    } else {
+                        $arInputs["link_img"] = $arInputs['domains'] . $link_image;
+                    }
+                    $name_file = substr(strrchr($link_image, "/"), 1);
+                    $format_file = substr(strrchr($name_file, "."), 1);
+                    $arFilterImg = array('jpg', 'jpeg', 'png', 'gif');
+                    if (in_array($format_file, $arFilterImg)) {
+                        $colors_load = $this->generator_color->getImageColor($arInputs["link_img"], 3, 5);
+                        if (!empty($colors_def)) {
+                            foreach ($colors_def as $key_def => $def_color) {
+                                foreach ($colors_load as $key => $color) {
+                                    if ($key != "FFFFFF") {
+                                        if ($key == $key_def) {
+                                            $load_img = false;
+                                            break;
+                                        }
+                                        $exe_color = strncmp($key_def, $key, 2);
+                                        if ($exe_color == 0) {
+                                            $load_img = false;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            if ($load_img == false) {
-                                break;
+                                if ($load_img == false) {
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    $path = "./color/img/$tr_name/" . $arInputs["id_parser"];
-                    if ($load_img) {
-                        if (!file_exists($path)) {
-                            mkdir($path, 0777, true);
-                            vdgu($path);
+                        $path = "./color/img/$tr_name/" . $arInputs["id_parser"];
+                        if ($load_img) {
+                            if (!file_exists($path)) {
+                                mkdir($path, 0777, true);
+                                vdgu($path);
+                            }
+                            $path .= "/" . $name_file;
+                            file_put_contents($path, file_get_contents($arInputs["link_img"]));
+                            $path = $path . "\n";
+                            $list_img .= substr($path, 1);
                         }
-                        $path .= "/" . $name_file;
-                        file_put_contents($path, file_get_contents($arInputs["link_img"]));
-                        $path = $path . "\n";
-                        $list_img .= substr($path, 1);
                     }
                 }
             }
+            $arItem = array("id_catagory" => (int)$arInputs["id_parser"], "name" => $pq->text(), "img" => $list_img);
+            $this->db->insert('item_rev', $arItem);
+            $this->db->where('name', $pq->text());
+            $this->db->select('id');
+            $query = $this->db->get('item_rev');
+            $arInputs["id_items"] = $query->result_array();
+            unset($query);
+            $arInputs["id_items"] = $arInputs["id_items"][0]["id"];
+            $name_product = pq($arInputs["name_item"])->text();
+            /*foreach ($document->find($arInputs["name_item"]) as $key_index => $element_index) {
+                $pq = pq($element_index);
+                $arItem = array("id" => "", "name" => $pq->text());
+                $this->db->insert('link_items', $arItem);
+                sleep(1);
+            }*/
         }
-        $arItem = array("id_catagory" => (int)$arInputs["id_parser"], "name" => $pq->text(),"img"=>$list_img);
-        $this->db->insert('item_rev', $arItem);
-        $this->db->where('name', $pq->text());
-        $this->db->select('id');
-        $query = $this->db->get('item_rev');
-        $arInputs["id_items"] = $query->result_array();
-        $arInputs["id_items"] = $arInputs["id_items"][0]["id"];
-        $name_product = pq($arInputs["name_item"])->text();
-        /*foreach ($document->find($arInputs["name_item"]) as $key_index => $element_index) {
-            $pq = pq($element_index);
-            $arItem = array("id" => "", "name" => $pq->text());
-            $this->db->insert('link_items', $arItem);
-            sleep(1);
-        }*/
         $code_item = $document->find($arInputs["code_item"]);
-        if(!empty($code_item)){
+        if (!empty($code_item)) {
             $code_item = explode($arInputs["exceptions"], $code_item);
             $arInputs["code"] = $code_item[1];
         }
-        self::reviews($arInputs, 0);
+        if (!empty($arInputs["link_reviews"])) {
+            self::reviews($arInputs, 0);
+        }        
     }
 
     public function reviews($arInputs, $count)
     {
+        $this->db->where('id_items', $arInputs["id_items"]);
+        $this->db->select('value');
+        $query = $this->db->get("rev_table");
+        $count_rev = $query->num_rows();
+        unset($query);
         /*if (strstr($text, $arInputs["link_reviews"])) {
             echo "Совпадение найдено.";
         } else {
@@ -183,11 +194,18 @@ class Parser_select extends CI_Model
             ++$count;
             $pq = pq($element_rev);
             $review = $pq->text();
+            
             $review = str_replace(array("\r", "\n", "</p>", "<p>", '"', "'"), "", $review);
             $len_rev = strlen($review);
             if ($len_rev < 40) {
                 continue;
             }
+//            if(!empty($arRev[0]['value'])) {
+                if ($count_rev>0) {
+                    $strAddBd = "";
+                    continue;
+                }
+//            }
             $strAddBd .= "(null, ".$arInputs["id_items"].", '$review'),";
             if ($count == 30) {
                 $strAddBd = substr($strAddBd,0,-1);
