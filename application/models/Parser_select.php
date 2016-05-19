@@ -222,7 +222,7 @@ class Parser_select extends CI_Model
                     }
                 }
             }
-            $arItem = array("id_catagory" => (int)$arInputs["id_parser"], "name" => $pq->text(), "img" => $list_img);
+            $arItem = array("name" => $pq->text(), "img" => $list_img);
             $this->db->where('id', $arInputs["id_items"]);
             $this->db->update('item_rev', $arItem);
         }
