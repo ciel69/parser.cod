@@ -159,6 +159,72 @@ class Parser_select extends CI_Model
                 $this->db->insert('link_items', $arItem);
                 sleep(1);
             }*/
+        } else {
+            if (!empty($arInputs["link_img"]) && stristr($arInputs["link_img"], '[')) {
+                $arLinkImg = explode("[", $arInputs["link_img"]);
+                $arLinkImg[1] = str_replace(array("]"), "", $arLinkImg[1]);
+            } elseif (!empty($arInputs["link_img"])) {
+                $arLinkImg[0] = $arInputs["link_img"];
+            }
+            if (!empty($arInputs["link_img"]) && !empty($arInputs["img_filter"])) {
+                $colors_def = $this->generator_color->getImageColor('.' . $arInputs["img_filter"], 3, 5);
+            }
+            if (!empty($arLinkImg[0])) {
+                foreach ($document->find($arLinkImg[0]) as $cell => $link) {
+                    $load_img = true;
+
+                    $tr_name = rus2translit($arInputs["name_source"]);
+                    $pq_img = pq($link);
+                    $link_image = $pq_img->attr($arLinkImg[1]);
+
+                    if (stristr($link_image, '//')) {
+                        $arInputs["link_img"] = $arInputs['scheme'] . ":" . $link_image;
+                    } else {
+                        $arInputs["link_img"] = $arInputs['domains'] . $link_image;
+                    }
+                    $name_file = substr(strrchr($link_image, "/"), 1);
+                    $format_file = substr(strrchr($name_file, "."), 1);
+                    $arFilterImg = array('jpg', 'jpeg', 'png', 'gif');
+                    if (in_array($format_file, $arFilterImg)) {
+                        $colors_load = $this->generator_color->getImageColor($arInputs["link_img"], 3, 5);
+                        if (!empty($colors_def)) {
+                            foreach ($colors_def as $key_def => $def_color) {
+                                foreach ($colors_load as $key => $color) {
+                                    if ($key != "FFFFFF") {
+                                        if ($key == $key_def) {
+                                            $load_img = false;
+                                            break;
+                                        }
+                                        $exe_color = strncmp($key_def, $key, 2);
+                                        if ($exe_color == 0) {
+                                            $load_img = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if ($load_img == false) {
+                                    break;
+                                }
+                            }
+                        }
+
+                        $path = "./color/img/$tr_name/" . $arInputs["id_parser"];
+                        if ($load_img) {
+                            if (!file_exists($path)) {
+                                mkdir($path, 0777, true);
+                                vdgu($path);
+                            }
+                            $path .= "/" . $name_file;
+                            file_put_contents($path, file_get_contents($arInputs["link_img"]));
+                            $path = $path . "\n";
+                            $list_img .= substr($path, 1);
+                        }
+                    }
+                }
+            }
+            $arItem = array("id_catagory" => (int)$arInputs["id_parser"], "name" => $pq->text(), "img" => $list_img);
+            $this->db->where('id', $arInputs["id_items"]);
+            $this->db->update('item_rev', $arItem);
         }
         $code_item = $document->find($arInputs["code_item"]);
         if (!empty($code_item)) {
