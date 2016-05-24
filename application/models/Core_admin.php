@@ -30,4 +30,9 @@ class Core_admin extends CI_Model
         }
         return $data;
     }
+    public function get_property_item($id){
+        $this->db->where('id_parser', $id);
+        $query = $this->db->get('property_items');
+        return $query->result_array();
+    }
 }

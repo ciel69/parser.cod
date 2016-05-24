@@ -5,12 +5,12 @@ function formation_form($property)
 {   $value = !empty($property["value"]) ? $property["value"] : "";
     if(!empty($property["name"])) {
         if ($property["name"] == "id_parser") {
-            echo "<input type='hidden' class=" . $property["name"] . " value=" . $value . ">";
+            echo "<input type='hidden' class='inputs_parser " . $property["name"] . "' value=" . $value . ">";
             return;
         }
     }
     if ($property["type_property"] == "text" ) {
-        echo "<input type='".$property["type_property"]."' data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' value='" . $value . "' placeholder='" . $property["placeholder_property"] . "'>";
+        echo "<input type='".$property["type_property"]."' data-lvl='" . $property["lvl_property"] . "' class='inputs_parser " . $property["class_property"] . "' value='" . $value . "' placeholder='" . $property["placeholder_property"] . "'>";
     } elseif($property["type_property"] == "file"){
     ?>
         <div>
@@ -24,7 +24,7 @@ function formation_form($property)
 
         <?
     } else {
-        echo "<textarea data-lvl='" . $property["lvl_property"] . "' class='" . $property["class_property"] . "' placeholder='" . $property["placeholder_property"] . "'>" . $value . "</textarea>";
+        echo "<textarea data-lvl='" . $property["lvl_property"] . "' class='inputs_parser " . $property["class_property"] . "' placeholder='" . $property["placeholder_property"] . "'>" . $value . "</textarea>";
     }
 }
 

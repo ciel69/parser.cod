@@ -1,6 +1,7 @@
 <?php
 if (!empty($newDefItem)) {
 //    vdgu($newDefItem);
+//    vdgu($arPropertyParser);
     ?>
     <div class="body_parser">
 <?
@@ -9,6 +10,15 @@ if (!empty($newDefItem)) {
         formation_form($item);
     }
 ?>
+        <div class="property_block">
+            <?
+            if(!empty($arPropertyParser)):
+                foreach ($arPropertyParser as $property):?>
+                    <input class="name_property" type="text" value="<?=$property["name"]?>">
+                    <input class="value_property" type="text" value="<?=$property["value"]?>">
+                <? endforeach;
+            endif;?>
+        </div>
     </div>
         <?
 } else {
@@ -70,11 +80,23 @@ if (!empty($newDefItem)) {
         });*/
         $('.save_pars').click(function () {
             var Data = {parser: {}};
+            var property = [];
             //$(this).attr('class')
-            $('.body_parser').children().each(function(){
-                Data.parser[$(this).attr('class')] = $(this).val();
+            $('.body_parser').children('.inputs_parser').each(function(){
+                var class_inputs = $(this).attr('class').replace(/(^|\s)inputs_parser(\s|$)/g, '');
+                Data.parser[class_inputs] = $(this).val();
             });
+
+            $('.property_block').children('.name_property').each(function(i){
+                    property[i] = {
+                        name_property:$(this).val(),
+                        value_property:$(this).next('.value_property').val()
+                    };
+            });
+            Data.parser["property"] = property;
+            console.log(Data);
             if(!!files){
+                console.log(files);
                 FileAPI.upload({
                     url: '/ajax/saveImage',
                     files: { images: files },
@@ -95,7 +117,7 @@ if (!empty($newDefItem)) {
                     }
                 })
             } else {
-                Data.parser['img_filter'] = $('img.img_filter').attr('src');
+                Data.parser['img_filter'] = $('img.img_filter').attr('src')||"";
                 $.ajax({
                     type: "POST",
                     url: "<?=base_url()?>ajax/save_parser",

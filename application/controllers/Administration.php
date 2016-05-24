@@ -13,9 +13,11 @@ class Administration extends CI_Controller
             return show_error('You must be an administrator to view this page.');
         }
         $this->load->view('templates/header');
-        $this->load->model('parser_list');
+        $this->load->model(array('parser_list','core_admin'));
         if ($settings == 'add') {
-            $this->load->view('administration/parser');
+            $data["newDefItem"] = $this->parser_list->get_default_property();
+            $this->load->view('administration/parser', $data);
+
         } elseif ($settings == 'index') {
             $data["list_source"] = $this->parser_list->get_list_source();
             $this->load->view('administration/new_parser', $data);
@@ -25,11 +27,13 @@ class Administration extends CI_Controller
                 $arItems = $this->parser_list->get_property_source($settings);
 
                 $data["newDefItem"] = format_array_parser($property_def, $arItems);
+                vdgu($data["newDefItem"]);
                 $this->load->view('administration/parser', $data);
             } else {
                 $data["item_parser"] = $this->parser_list->select_pars($pars);
                 $property_def = $this->parser_list->get_default_property();
-//                vdgu($data["item_parser"]);
+                $data["arPropertyParser"] = $this->core_admin->get_property_item($pars);
+//                vdgu($data["item_property"]);
                 $data["newDefItem"] = format_array_parser($property_def, $data["item_parser"]);;
                 $this->load->view('administration/parser', $data);
             }

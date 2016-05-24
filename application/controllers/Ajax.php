@@ -47,14 +47,7 @@ class Ajax extends CI_Controller
 
         //$arInputs["id_parser"]
         unset($arParser);
-        /*$arInputs["item_class"] = $this->input->post('class_item');
-        $arInputs["next_link"] = $this->input->post('next_link');
-        $arInputs["name_item"] = $this->input->post('name_item');
-        $arInputs["code_item"] = $this->input->post('code_item');
-        $arInputs["exceptions"] = $this->input->post('exceptions');
-        $arInputs["link_reviews"] = $this->input->post('link_reviews');
-        $arInputs["class_review"] = $this->input->post('class_review');
-        $arInputs["class_page_rev"] = $this->input->post('class_page_rev');*/
+        
         if(!empty($arInputs)) {
             $this->load->model('core_admin');
             $arInputs["name_source"]=$this->core_admin->get_property_source("tr_name", $arInputs["id_parser"]);

@@ -40,7 +40,7 @@ class Parser_select extends CI_Model
             foreach ($document->find($arInputs["class_item"]) as $key_index => $element_index) {
                 ++$count;
                 $pq = pq($element_index);
-                $arLinks = (($pq->attr('href') != "#") || (in_array($pq->attr('href'), $this->arExclusion))) ? $pq->attr('href') : "";
+                $arLinks = $pq->attr('href');
                 $arLinksItems[] = $arLinks;
                 if ($count == 30) {
                     foreach ($arLinksItems as $item) {
