@@ -65,11 +65,11 @@ if (!empty($newDefItem)) {
                 }
             });
         });
-        
+
         $('.save_pars').click(function () {
             var Data = {parser: {}};
             var property = [];
-            //$(this).attr('class')
+
             $('.body_parser').children('.inputs_parser').each(function(){
                 var class_inputs = $(this).attr('class').replace(/(^|\s)inputs_parser(\s|$)/g, '');
                 Data.parser[class_inputs] = $(this).val();
@@ -81,7 +81,9 @@ if (!empty($newDefItem)) {
                         value_property:$(this).children('.value_property').val()
                     };
             });
+
             Data.parser["property"] = property;
+
             console.log(Data);
             if(!!files){
                 console.log(files);

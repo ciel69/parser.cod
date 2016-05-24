@@ -40,6 +40,7 @@ class Parser_list extends CI_Model
     {
         $id_parser = 0;
         $query = $this->db->query("SELECT * FROM reviews.source_pars WHERE `value` = '" . $arProp["name_source"] . "'");
+
         if ($query->num_rows() == 0) {
             $data = array(
                 "value" => $arProp["name_source"],
@@ -55,16 +56,19 @@ class Parser_list extends CI_Model
             $id = $row->id;
         }
         $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE `value` = '" . $arProp["name_parser"] . "' AND id_source = '" . $id . "'");
+
         if ($query->num_rows() == 0) {
             $data = array(
                 'id_source' => $id,
                 "value" => $arProp["name_parser"]
             );
             $this->db->insert('list_parser', $data);
+
             $query = $this->db->query("SELECT * FROM reviews.list_parser WHERE `value` = '" . $arProp["name_parser"] . "'");
             foreach ($query->result() as $row) {
                 $id_parser = $row->id;
             }
+
             foreach ($arProp as $key => $item) {
                 if ($key == "name_source" || $key == "name_parser" || $key == "property_items" || $key == "property") {
                     continue;
@@ -92,6 +96,7 @@ class Parser_list extends CI_Model
                     unset($data, $arProp[$row["name_property"]]);
                 }
             }
+
             foreach ($arProp as $key => $item) {
                 if ($key == "name_source" || $key == "name_parser" || $key == "property") {
                     continue;
@@ -107,6 +112,7 @@ class Parser_list extends CI_Model
             }
         }
         unset($data);
+
         if (empty($update)) {
             $data = array(
                 "value" => $arProp["name_source"],
@@ -139,7 +145,7 @@ class Parser_list extends CI_Model
                 }
             }
         }
-        vdgu($arProp["property"]);
+
         if(!empty($arProp["property"])){
             foreach ($arProp["property"] as $key =>$property){
                 $data = array(
@@ -149,8 +155,6 @@ class Parser_list extends CI_Model
                 );
                 $this->db->insert('property_items', $data);
             }
-            /*$data["id_parser"] = $id_parser;
-            $this->db->insert('property_items', $data);*/
         }
         return $id_parser;
     }
@@ -204,7 +208,6 @@ class Parser_list extends CI_Model
         $query->free_result();
         $this->db->where('id_parser', $row_parser[0]["id"]);
         $query = $this->db->get('prop_parser');
-//        return $query->result_array();
         $arResult = array_merge(array("prop" => $query->result_array()), array("name_parser" => $row_parser), array("name_source" => $row_source));
         return $arResult;
     }
