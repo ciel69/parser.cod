@@ -14,8 +14,10 @@ if (!empty($newDefItem)) {
             <?
             if(!empty($arPropertyParser)):
                 foreach ($arPropertyParser as $property):?>
-                    <input class="name_property" type="text" value="<?=$property["name"]?>">
-                    <input class="value_property" type="text" value="<?=$property["value"]?>">
+                    <div class="row_property">
+                        <input class="name_property" type="text" value="<?=$property["name"]?>">
+                        <input class="value_property" type="text" value="<?=$property["value"]?>">
+                    </div>
                 <? endforeach;
             endif;?>
         </div>
@@ -87,10 +89,10 @@ if (!empty($newDefItem)) {
                 Data.parser[class_inputs] = $(this).val();
             });
 
-            $('.property_block').children('.name_property').each(function(i){
+            $('.property_block').children('.row_property').each(function(i){
                     property[i] = {
-                        name_property:$(this).val(),
-                        value_property:$(this).next('.value_property').val()
+                        name_property:$(this).children('.name_property').val(),
+                        value_property:$(this).children('.value_property').val()
                     };
             });
             Data.parser["property"] = property;

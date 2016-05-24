@@ -123,7 +123,7 @@ class Parser_list extends CI_Model
                 $data[$property["name_property"]] = $property["value_property"];
             }
             $data["id_parser"] = $id_parser;
-            $this->db->insert('source_pars', $data);
+            $this->db->insert('property_items', $data);
             unset($data);
         } else {
             foreach ($query->result_array() as $cell => $row){
@@ -141,7 +141,16 @@ class Parser_list extends CI_Model
         }
         vdgu($arProp["property"]);
         if(!empty($arProp["property"])){
-
+            foreach ($arProp["property"] as $key =>$property){
+                $data = array(
+                    "name"=>$property["name_property"],
+                    "value"=>$property["value_property"],
+                    "id_parser" => $id_parser
+                );
+                $this->db->insert('property_items', $data);
+            }
+            /*$data["id_parser"] = $id_parser;
+            $this->db->insert('property_items', $data);*/
         }
         return $id_parser;
     }
