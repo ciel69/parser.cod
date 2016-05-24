@@ -20,7 +20,9 @@ if (!empty($newDefItem)) {
                     </div>
                 <? endforeach;
             endif;?>
+
         </div>
+        <input type="button" class="add_row" value="add">
     </div>
         <?
 } else {
@@ -36,6 +38,11 @@ if (!empty($newDefItem)) {
 <script src="/public/FileAPI/dist/FileAPI.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('.add_row').click(function () {
+            $('.property_block').append('<div class="row_property"><input class="name_property" type="text" value=""><input class="value_property" type="text" value=""></div>');
+        });
+
         var files;
 
         FileAPI.event.on(choose, 'change', function (evt){
@@ -58,28 +65,7 @@ if (!empty($newDefItem)) {
                 }
             });
         });
-        /*$('.pars').click(function () {
-            var Data = {};
-            Data['url'] = $('.url').val();
-            Data['class_item'] = $('.class_item').val();
-            Data['next_link'] = $('.name_source').val();
-            Data['next_link'] = $('.next_link').val();
-            Data['name_item'] = $('.name_item').val();
-            Data['code_item'] = $('.code_item').val();
-            Data['exceptions'] = $('.exceptions').val();
-            Data['link_reviews'] = $('.link_reviews').val();
-            Data['class_review'] = $('.class_review').val();
-            Data['class_page_rev'] = $('.class_page_rev').val();
-            $.ajax({
-                type: "POST",
-                url: "ajax/parser",
-                data: Data,
-                dataType: 'json',
-                success: function (msg) {
-                    console.log(msg);
-                }
-            });
-        });*/
+        
         $('.save_pars').click(function () {
             var Data = {parser: {}};
             var property = [];
