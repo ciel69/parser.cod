@@ -32,7 +32,8 @@ if (!empty($newDefItem)) {
     }
 }
 ?>
-<input type="submit" class="pars" value="Ok">
+<!--<input type="submit" class="pars" value="Ok">-->
+<input type="submit" class="get_property" value="Ok">
 <input type="submit" class="save_pars" value="Save">
 <script>window.FileAPI = { staticPath: '/public/FileAPI/dist/' };</script>
 <script src="/public/FileAPI/dist/FileAPI.min.js"></script>
@@ -66,6 +67,40 @@ if (!empty($newDefItem)) {
             });
         });
 
+        $('.get_property').click(function () {
+            
+            var Data = {parser: {}};
+            var property = [];
+            
+            $('.body_parser').children('.inputs_parser').each(function(){
+                var class_inputs = $(this).attr('class').replace(/(^|\s)inputs_parser(\s|$)/g, '');
+                Data.parser[class_inputs] = $(this).val();
+            });
+
+            $('.property_block').children('.row_property').each(function(i){
+                property[i] = {
+                    name_property:$(this).children('.name_property').val(),
+                    value_property:$(this).children('.value_property').val()
+                };
+            });
+
+            Data.parser["property"] = property;
+
+            $.ajax({
+                type: "POST",
+                url: "<?=base_url()?>ajax/get_property",
+                data: Data,
+                dataType: 'json',
+                success: function (msg) {
+                    console.log(msg);
+                    msg.forEach(function (item, i, arr) {
+                        console.log(item);
+                        $('.property_block').append('<div class="row_property"><input class="name_property" type="text" value="'+item.name+'"><input class="value_property" type="text" value="'+item.name+'"></div>');
+                    })
+                }
+            });
+            
+        });
         $('.save_pars').click(function () {
             var Data = {parser: {}};
             var property = [];

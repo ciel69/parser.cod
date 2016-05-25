@@ -126,10 +126,17 @@ class Parser_list extends CI_Model
         $query = $this->db->query("SELECT * FROM reviews.property_items WHERE `id_parser` = '" . $id_parser . "'");
         if ($query->num_rows() == 0) {
             foreach ($arProp["property"] as $key =>$property){
-                $data[$property["name_property"]] = $property["value_property"];
+                $data = array(
+                    "name"=>$property["name_property"],
+                    "value"=>$property["value_property"],
+                    "id_parser" => $id_parser
+
+                );
+                $this->db->insert('property_items', $data);
+                unset($data, $arProp["property"][$key]);
             }
-            $data["id_parser"] = $id_parser;
-            $this->db->insert('property_items', $data);
+            /*$data["id_parser"] = $id_parser;
+            $this->db->insert('property_items', $data);*/
             unset($data);
         } else {
             foreach ($query->result_array() as $cell => $row){
@@ -213,7 +220,12 @@ class Parser_list extends CI_Model
     }
     public function get_prop_parser($id){
         $this->db->where('id_parser', $id);
-        $query = $this->db->get('prop_parser');
-        return $query->result_array();
+        $query1 = $this->db->get('prop_parser');
+        $this->db->where('id_parser', $id);
+        $prop = $query1->result_array();
+        $query2 = $this->db->get('property_items');
+        $property["property"] = $query2->result_array();
+        $prop[] = $property;
+        return $prop;
     }
 }

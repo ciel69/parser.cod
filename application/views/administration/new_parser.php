@@ -49,8 +49,12 @@ if (!empty($list_source)) :?>
                                 var obj_prop = {parser:{}};
                                 obj_prop.parser["id_parser"]= id_pars['id_parser'];
                                 if (Object.keys(msg).length != 0) {
+
+                                    
+                                    console.log(msg.property);
                                     console.log(msg);
                                     msg.forEach(function (item, i, arr) {
+
                                         if (!id_item) {
                                             id_item = item.id_parser;
                                         }
@@ -58,7 +62,9 @@ if (!empty($list_source)) :?>
                                             var property = item.name_property;
                                             obj_prop.parser[item.name_property] = item.value;
                                         }
-
+                                        if(!!item.property){
+                                            obj_prop.parser["property"] = item.property;
+                                        }
                                         id_item = item.id_parser;
                                     });
                                 console.log(obj_prop);

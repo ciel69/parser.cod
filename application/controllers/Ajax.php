@@ -29,7 +29,35 @@ class Ajax extends CI_Controller
         $comment = $this->input->post('comment');
         echo $comment . " заказ успешно сделан";
     }
-
+    
+    public function get_property()
+    {
+        $this->output->enable_profiler(false); // чтобы не вывелась отладка нечаянно
+        
+        if ($this->input->server('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest') {
+            echo "не-аякс не разрешен. пошел вон грязный хакир.";
+            return;
+        }
+        
+        $this->load->model('parser_select');
+        $arParser = $this->input->post('parser');
+        
+        foreach ($arParser as $key=>$item_parse){
+            $arInputs[$key] = $item_parse;
+        }
+        
+        unset($arParser);
+        
+        $rowSite_url = explode("\n", $arInputs["url"]);
+        
+        foreach ($rowSite_url as $cell => $site_url) {
+            $arInputs["site_url"] = $site_url;
+            $result = $this->parser_select->get_properties($arInputs);
+        }
+        
+        echo json_encode($result);
+    }
+    
     public function parser()
     {
 
@@ -47,7 +75,7 @@ class Ajax extends CI_Controller
 
         //$arInputs["id_parser"]
         unset($arParser);
-        
+        vdgu($arInputs);
         if(!empty($arInputs)) {
             $this->load->model('core_admin');
             $arInputs["name_source"]=$this->core_admin->get_property_source("tr_name", $arInputs["id_parser"]);
