@@ -286,16 +286,20 @@ class Parser_select extends CI_Model
         }
 
         if(!empty($arInputs["table_property"])){
+
             foreach ($document->find($arInputs["table_property"]) as $key => $element) {
                 $arProperty[$key]["name"] = pq(pq($element)->children('td')->get(0))->text();
                 $arProperty[$key]["value"] = pq(pq($element)->children('td')->get(1))->text();
+
                 foreach ($arInputs["property"] as $property){
                     if($arProperty[$key]["name"] == $property["name"]){
                         $arProperty[$key]["name"] = $property["value"];
                     }
                 }
+
                 $arItem = array("id_item" => (int)$arInputs["id_items"], "name" => $arProperty[$key]["name"], "value" => $arProperty[$key]["value"]);
                 $this->db->insert('property_items', $arItem);
+
                 unset($arProperty[$key]);
             }
             
