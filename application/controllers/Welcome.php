@@ -20,9 +20,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{	$this->load->helper(array('file', 'url', 'translit','formation'));
-		$this->load->library(array('phpmorph'));
 
-		$val = $this->phpmorph->morph("смартфон samsung зелёный", array('ЕД', 'ПР'));
+		$this->load->library(array('phpmorph'));
+		$val = $this->phpmorph->morph("смартфон samsung зелёный", array('МН', 'ПР'));
+
 		vdgu("отзывы о ".$val);
 		$this->load->view('welcome_message');
 	}
