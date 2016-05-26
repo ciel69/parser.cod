@@ -19,7 +19,11 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+	{	$this->load->helper(array('file', 'url', 'translit','formation'));
+		$this->load->library(array('phpmorph'));
+
+		$val = $this->phpmorph->morph("смартфон samsung зелёный", array('ЕД', 'ПР'));
+		vdgu("отзывы о ".$val);
 		$this->load->view('welcome_message');
 	}
 	public function color(){

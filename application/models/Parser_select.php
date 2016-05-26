@@ -287,6 +287,12 @@ class Parser_select extends CI_Model
 
         if(!empty($arInputs["table_property"])){
 
+            $this->db->where('id_item', $arInputs["id_items"]);
+            $query = $this->db->get('property_items');
+            $getProperty = $query->result_array();
+            $count_property = $query->num_rows();
+            vdgu($getProperty);
+
             foreach ($document->find($arInputs["table_property"]) as $key => $element) {
                 $arProperty[$key]["name"] = pq(pq($element)->children('td')->get(0))->text();
                 $arProperty[$key]["value"] = pq(pq($element)->children('td')->get(1))->text();
@@ -296,9 +302,20 @@ class Parser_select extends CI_Model
                         $arProperty[$key]["name"] = $property["value"];
                     }
                 }
+                
+                $b_pars = true;
+                
+                foreach ($getProperty as $prop){
+                    if($arProperty[$key]["name"] == $prop["name"]){
+                        $b_pars = false;
+                    }
+                }
+                
 
-                $arItem = array("id_item" => (int)$arInputs["id_items"], "name" => $arProperty[$key]["name"], "value" => $arProperty[$key]["value"]);
-                $this->db->insert('property_items', $arItem);
+                if($count_property == 0 || $b_pars){
+                    $arItem = array("id_item" => (int)$arInputs["id_items"], "name" => $arProperty[$key]["name"], "value" => $arProperty[$key]["value"]);
+                    $this->db->insert('property_items', $arItem);
+                }
 
                 unset($arProperty[$key]);
             }
